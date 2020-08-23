@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: my-zuul
+server:
+  port: 881
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://admin:admin@localhost:8763/eureka/
+
+
+#zuul.routes.eureka-application-service.path=/api/**
+#zuul.routes.eureka-application-service.url=http://127.0.0.1:8080/
+# http://localhost:6060/actuator/hystrix.stream
+
+#针对某个服务传输指定的headers信息 ，默认是过滤掉 Cookie,Set-Cookie,Authorization 这三个信息的
+#这里置空就是不要过滤掉这三个
+#zuul.routes.my-user.sensitive-headers=
+
+zuul:
+  routes:
+    my-user:
+      path: /user/**
+      serviceId: my-user
+      sensitive-headers:
+      retryable: true #关闭当前服务重试
+
+  add-host-header: true #添加host头信息，标识最初的服务端请求地址
+  add-proxy-headers: true #默认添加  X-Forwarded-*头域
+  retryable: false #关闭所有服务重试
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 100000
+ribbon:
+  ConnectTimeout: 2000
+  ReadTimeout: 10000

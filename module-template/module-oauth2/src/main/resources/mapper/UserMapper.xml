@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isky.oauth2.server.mapper.UserMapper">
+<!--    <resultMap id="BaseResultMap" type="com.isky.oauth2.server.entity.User">-->
+<!--        <id column="id" jdbcType="BIGINT" property="id"/>-->
+<!--        <result column="username" jdbcType="VARCHAR" property="username"/>-->
+<!--        <result column="password" jdbcType="VARCHAR" property="password"/>-->
+<!--        <collection property="authorities" ofType="com.isky.oauth2.server.entity.Role" columnPrefix="r_">-->
+<!--            <id column="id" jdbcType="BIGINT" property="id"/>-->
+<!--            <result column="name" jdbcType="VARCHAR" property="name"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+<!--    <select id="queryUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+<!--        select u.id,u.username,u.password,-->
+<!--        r.id r_id,r.role_name r_name-->
+<!--        from `user_t` u-->
+<!--        join user_role_t ur on ur.user_id = u.id-->
+<!--        join role_t r on r.id = ur.role_id-->
+<!--        where u.username = #{username}-->
+<!--    </select>-->
+
+</mapper>
