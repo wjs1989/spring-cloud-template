@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wjs.template</groupId>
-        <artifactId>resource-common-start</artifactId>
+        <artifactId>resource-common-template</artifactId>
         <version>1.0.0</version>
     </parent>
     <groupId>com.wjs.oauth2</groupId>

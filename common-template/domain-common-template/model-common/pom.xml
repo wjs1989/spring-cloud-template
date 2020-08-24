@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wjs.template</groupId>
-        <artifactId>domain-common-start</artifactId>
+        <artifactId>domain-common-template</artifactId>
         <version>1.0.0</version>
     </parent>
     <groupId>com.wjs.model</groupId>

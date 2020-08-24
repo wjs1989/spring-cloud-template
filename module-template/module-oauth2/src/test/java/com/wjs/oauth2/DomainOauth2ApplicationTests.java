@@ -2,6 +2,7 @@ package com.wjs.oauth2;
 
 import org.junit.jupiter.api.Test;
 import org.omg.CORBA.portable.InvokeHandler;
+import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +20,8 @@ class DomainOauth2ApplicationTests {
     void contextLoads() {
         try{
 
+
+            BeanDefinitionRegistryPostProcessor
         }finally{
 
         }
