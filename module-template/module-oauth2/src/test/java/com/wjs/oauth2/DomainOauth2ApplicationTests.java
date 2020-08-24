@@ -20,8 +20,7 @@ class DomainOauth2ApplicationTests {
     void contextLoads() {
         try{
 
-
-            BeanDefinitionRegistryPostProcessor
+ 
         }finally{
 
         }
