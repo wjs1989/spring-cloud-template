@@ -19,6 +19,11 @@
             <artifactId>model-common</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.wjs.exception</groupId>
+            <artifactId>global-exception-handler</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

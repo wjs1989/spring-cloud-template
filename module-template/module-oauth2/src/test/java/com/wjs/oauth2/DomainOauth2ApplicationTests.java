@@ -20,7 +20,7 @@ class DomainOauth2ApplicationTests {
     void contextLoads() {
         try{
 
- 
+
         }finally{
 
         }

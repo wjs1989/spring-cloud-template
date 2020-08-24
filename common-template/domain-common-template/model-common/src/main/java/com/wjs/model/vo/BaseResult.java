@@ -1,5 +1,6 @@
 package com.wjs.model.vo;
 
+import com.wjs.model.constant.MessageEnum;
 import lombok.Data;
 
 /**
@@ -32,20 +33,30 @@ public class BaseResult<T> {
     }
 
     public static <T> BaseResult success(T data){
-        return new BaseResult(0,"请求成功",data);
+        return buildCode(MessageEnum.SUCCESS,data);
     }
-
     public static BaseResult success(){
-        return new BaseResult(0,"请求成功");
+        return buildCode(MessageEnum.SUCCESS);
     }
 
     public static BaseResult error(){
-        return new BaseResult(-1,"请求失败");
+        return  buildCode(MessageEnum.FAIL);
+    }
+    public static BaseResult error(MessageEnum messageEnum){
+        return buildCode(messageEnum);
     }
     public static BaseResult error(String message){
         return new BaseResult(-1,message);
     }
     public static BaseResult error(Integer code,String message){
         return new BaseResult(code,message);
+    }
+
+    private static BaseResult buildCode(MessageEnum messageEnum){
+        return new BaseResult(messageEnum.getCode(),messageEnum.getMsg());
+    }
+
+    private static <T> BaseResult buildCode(MessageEnum messageEnum,T data){
+        return new BaseResult(messageEnum.getCode(),messageEnum.getMsg(),data);
     }
 }

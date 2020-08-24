@@ -16,6 +16,7 @@
 
     <modules>
         <module>model-common</module>
+        <module>global-exception-handler</module>
     </modules>
 
     <properties>
