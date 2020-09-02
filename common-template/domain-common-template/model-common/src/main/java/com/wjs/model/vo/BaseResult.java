@@ -46,7 +46,7 @@ public class BaseResult<T> {
         return buildCode(messageEnum);
     }
     public static BaseResult error(String message){
-        return new BaseResult(-1,message);
+        return new BaseResult(MessageEnum.FAIL.getCode(),message);
     }
     public static BaseResult error(Integer code,String message){
         return new BaseResult(code,message);
