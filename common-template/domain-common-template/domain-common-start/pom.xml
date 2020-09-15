@@ -6,7 +6,6 @@
     <artifactId>domain-common-start</artifactId>
     <version>1.0.0</version>
     <name>domain-common-start</name>
-    <packaging>pom</packaging>
     <description>start包</description>
 
     <properties>
