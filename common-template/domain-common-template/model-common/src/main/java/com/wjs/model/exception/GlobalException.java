@@ -7,37 +7,37 @@ import com.wjs.model.constant.MessageEnum;
  * @Description:
  * @date 2020/8/24 11:44
  */
-public class APIException extends RuntimeException {
+public class GlobalException extends RuntimeException {
     private Integer code;
 
     private MessageEnum messageEnum;
 
-    public APIException(String message){
+    public GlobalException(String message){
         super(message);
         this.code = MessageEnum.FAIL.getCode();
     }
 
-    public APIException(String message,Throwable cause){
+    public GlobalException(String message, Throwable cause){
         super(message,cause);
         this.code = MessageEnum.FAIL.getCode();
     }
 
-    public APIException(Integer code,String message,Throwable cause){
+    public GlobalException(Integer code, String message, Throwable cause){
         super(message,cause);
         this.code = code;
     }
 
-    public APIException(Integer code,String message){
+    public GlobalException(Integer code, String message){
         super(message);
         this.code = code;
     }
 
-    public APIException(MessageEnum messageEnum){
+    public GlobalException(MessageEnum messageEnum){
         super(messageEnum.getMsg());
         this.code = messageEnum.getCode();
     }
 
-    public APIException(MessageEnum messageEnum,Throwable cause){
+    public GlobalException(MessageEnum messageEnum, Throwable cause){
         super(messageEnum.getMsg(),cause);
         this.code = messageEnum.getCode();
     }

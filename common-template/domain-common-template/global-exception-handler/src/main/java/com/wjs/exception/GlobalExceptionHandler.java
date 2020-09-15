@@ -1,10 +1,15 @@
 package com.wjs.exception;
 
-import com.wjs.model.exception.APIException;
+import com.wjs.model.exception.GlobalException;
 import com.wjs.model.vo.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author wenjs
@@ -15,13 +20,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(APIException.class)
-    public BaseResult apiException(APIException e)
+    @ExceptionHandler(GlobalException.class)
+    public BaseResult apiException(GlobalException e)
     {
         log.error("GlobalExceptionHandler.apiException :",e);
 
         if(e.getMessageEnum() != null){
             return BaseResult.error(e.getMessageEnum());
+        }
+        try(InputStream in = new FileInputStream("")){
+
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
 
         return BaseResult.error(e.getCode(),e.getMessage());

@@ -7,18 +7,27 @@
         <artifactId>domain-common-template</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.wjs.model</groupId>
-    <artifactId>model-common</artifactId>
+    <groupId>com.wjs.exception</groupId>
+    <artifactId>global-exception-handler</artifactId>
     <version>1.0.0</version>
-    <name>model-common</name>
+    <name>global-exception-handler</name>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
 
-
+        <dependency>
+            <groupId>com.wjs.model</groupId>
+            <artifactId>model-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
+
 
 </project>

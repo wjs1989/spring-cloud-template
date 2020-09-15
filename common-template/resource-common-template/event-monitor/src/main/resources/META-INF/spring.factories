@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.wjs.exception.GlobalExceptionHandler
+  com.wjs.event.EventAutoConfiguration

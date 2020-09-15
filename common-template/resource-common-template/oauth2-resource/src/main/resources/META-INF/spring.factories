@@ -3,6 +3,3 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.wjs.oauth2.config.MethodSecurityConfig,\
   com.wjs.oauth2.handler.CustomAccessDeniedHandler,\
   com.wjs.oauth2.handler.GlobalExceptionHandler
-
-
-  

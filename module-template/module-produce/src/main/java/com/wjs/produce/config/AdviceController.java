@@ -1,6 +1,6 @@
 package com.wjs.produce.config;
 
-import com.wjs.model.exception.APIException;
+import com.wjs.model.exception.GlobalException;
 import com.wjs.model.vo.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -66,8 +66,8 @@ public class AdviceController {
 	 * @return
 	 */
 	@ResponseBody
-	@ExceptionHandler(APIException.class)
-	public <T> BaseResult<T> apiException(APIException e) {
+	@ExceptionHandler(GlobalException.class)
+	public <T> BaseResult<T> apiException(GlobalException e) {
 
 		if (log.isErrorEnabled()) {
 			log.error("APIException:", e);
