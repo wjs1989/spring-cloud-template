@@ -49,6 +49,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.wjs.template</groupId>
+            <artifactId>popular-common-start</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

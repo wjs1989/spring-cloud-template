@@ -1,10 +1,10 @@
 package com.wjs.oauth2.server.serivce.impl;
 
+import com.wjs.domain.service.user.vo.rsp.SysUser;
+import com.wjs.domain.service.user.vo.rsp.UserInfo;
+import com.wjs.model.vo.BaseResult;
 import com.wjs.oauth2.server.domain.LoginUser;
-import com.wjs.oauth2.server.domain.Result;
-import com.wjs.oauth2.server.domain.SysUser;
-import com.wjs.oauth2.server.domain.UserInfo;
-import com.wjs.oauth2.server.serivce.feign.RemoteUserService;
+import com.wjs.remote.feign.RemoteUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Result<UserInfo> userInfo = remoteUserService.getUserInfo(userName);
+        BaseResult<UserInfo> userInfo = remoteUserService.getUserInfo(userName);
         checkUser(userInfo, userName);
         return getUserDetails(userInfo);
     }
 
-    public void checkUser(Result<UserInfo> userResult, String username)
+    public void checkUser(BaseResult<UserInfo> userResult, String username)
     {
         if (userResult == null || userResult.getData() == null)
         {
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
     }
 
-    private UserDetails getUserDetails(Result<UserInfo> result)
+    private UserDetails getUserDetails(BaseResult<UserInfo> result)
     {
         UserInfo info = result.getData();
         Set<String> dbAuthsSet = new HashSet<String>();

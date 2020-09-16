@@ -10,7 +10,7 @@ public class Test1 {
     public void print(){
         System.out.println("----------------");
     }
-    @Test
+   // @Test
     void executorTest(){
         ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1);
 

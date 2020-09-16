@@ -1,8 +1,8 @@
 package com.wjs.oauth2.server.controller;
 
-import com.wjs.oauth2.server.vo.BaseResult;
-import com.wjs.oauth2.server.vo.LoginVO;
-import com.wjs.oauth2.server.vo.TokenVO;
+import com.wjs.domain.service.user.vo.rsp.LoginVO;
+import com.wjs.domain.service.user.vo.rsp.TokenVO;
+import com.wjs.model.vo.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public BaseResult<TokenVO> login(HttpServletRequest request,@RequestBody LoginVO vo){
+    public BaseResult<TokenVO> login(HttpServletRequest request, @RequestBody LoginVO vo){
         if(vo == null){
             return BaseResult.error("请输入请求参数");
         }

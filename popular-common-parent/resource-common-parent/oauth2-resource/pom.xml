@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.wjs.template</groupId>
+        <artifactId>resource-common-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <groupId>com.wjs.oauth2</groupId>
+    <artifactId>oauth2-resource</artifactId>
+    <version>1.0.0</version>
+    <name>oauth2-resource</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <popular.common.version>1.0.0</popular.common.version>
+        <global.exception.version>1.0.0</global.exception.version>
+        <user.remote.version>1.0.0</user.remote.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wjs.model</groupId>
+            <artifactId>popular-common</artifactId>
+            <version>${popular.common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wjs.exception</groupId>
+            <artifactId>global-exception-handler</artifactId>
+            <version>${global.exception.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wjs.remote</groupId>
+            <artifactId>user-remote</artifactId>
+            <version>${user.remote.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
