@@ -1,0 +1,53 @@
+server:
+  port: 10620
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://118.24.22.139:8721/goods?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 30000
+      auto-commit: true
+      max-lifetime: 1800000
+      pool-name: DatebookHikariCP
+      minimum-idle: 5
+      connection-test-query: SELECT 1
+      idle-timeout: 30000
+      maximum-pool-size: 15
+  redis:
+    host: 10.204.125.208
+    port: 6380
+    timeout: 5000
+    password: redis-isky
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: 10000
+        max-idle: 100
+        min-idle: 30
+        timeout: 10000
+      database: 0
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://10.204.125.109:8863/eureka/
+
+mybatis-plus:
+  # 扫描mapper.xml文件
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  # 扫描实体类
+  typeAliasesPackage: com.wjs.seckill.*.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 0 #逻辑删除值 默认1
+      logic-not-delete-value: 1 #逻辑未删除值 默认 0
+      logic-delete-field: valid #全局逻辑删除字段 或者在实体字段上配置 @TableLogic

@@ -1,5 +1,6 @@
 package com.wjs.exception;
 
+import com.wjs.model.constant.MessageEnum;
 import com.wjs.model.exception.GlobalException;
 import com.wjs.model.vo.BaseResult;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,12 @@ import java.io.InputStream;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(Exception.class)
+    public BaseResult exception(Exception e)
+    {
+        log.error("Exception :",e);
+        return BaseResult.error(MessageEnum.FAIL.getCode(),e.getMessage());
+    }
 
     @ExceptionHandler(GlobalException.class)
     public BaseResult apiException(GlobalException e)

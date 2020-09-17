@@ -28,8 +28,10 @@
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
         <fastjson.version>1.2.38</fastjson.version>
         <mybatis-plus-generator.version>3.1.1</mybatis-plus-generator.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <mybatis-spring-boot.version>2.1.2</mybatis-spring-boot.version>
         <swagger.version>2.9.2</swagger.version>
+        <swagger.model.version>1.5.22</swagger.model.version>
         <druid.version>1.1.10</druid.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
@@ -55,6 +57,11 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>

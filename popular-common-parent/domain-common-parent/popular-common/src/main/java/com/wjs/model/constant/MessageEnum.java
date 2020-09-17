@@ -11,6 +11,7 @@ public enum MessageEnum {
 
     FAIL(-1,"失败"),
     SUCCESS(0, "成功"),
+    PARAMETER_FORMAT_EXCEPTION(1,"参数格式异常"),
 
     //100 001 001
     EVENT_PARAMS_CONVERT_ERROR(100001001,"事件参数解析异常"),
