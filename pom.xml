@@ -37,6 +37,8 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <minio.version>3.0.10</minio.version>
         <spring.openfeign.version>2.2.0.RELEASE</spring.openfeign.version>
+
+        <guava.version>20.0</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -109,6 +111,12 @@
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
