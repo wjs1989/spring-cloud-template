@@ -14,4 +14,6 @@ public interface GoodsService extends IService<Goods> {
     List<Goods> querySeckillGoods();
 
     boolean seckill(Long userId,Long goodsId,Integer num);
+
+    Goods cache(Long id) throws Exception;
 }

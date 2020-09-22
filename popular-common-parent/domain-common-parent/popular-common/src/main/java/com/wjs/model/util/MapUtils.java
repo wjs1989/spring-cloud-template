@@ -4,12 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.wjs.model.constant.MessageEnum;
 import com.wjs.model.exception.GlobalException;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapUtils extends org.apache.commons.collections.MapUtils {
 
     /**
      * map转bean
+     *
      * @param map
      * @param beanClass
      * @return
@@ -21,12 +24,17 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
             return null;
         }
 
-        return JSONObject.parseObject(JSONObject.toJSONString(map),beanClass);
+        return JSONObject.parseObject(JSONObject.toJSONString(map), beanClass);
     }
+
     /**
      * 对象转map
      */
     public static Map<String, Object> convertToMap(Object obj) {
+        if (Objects.isNull(obj)) {
+            return new HashMap<>();
+        }
+
         if (obj instanceof Map) {
             return (Map) obj;
         }

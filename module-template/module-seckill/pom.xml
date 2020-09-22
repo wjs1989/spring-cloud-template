@@ -28,24 +28,20 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- 添加redis支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-        </dependency>
-        		<dependency>
-        			<groupId>redis.clients</groupId>
-        			<artifactId>jedis</artifactId>
-        			<version>2.9.0</version>
-        		</dependency>
-        <!-- 添加自定义包-->
         <dependency>
             <groupId>com.wjs.template</groupId>
             <artifactId>popular-common-start</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wjs.redis</groupId>
+            <artifactId>redis-auxiliary</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wjs.ehcache</groupId>
+            <artifactId>ehcache-auxiliary</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

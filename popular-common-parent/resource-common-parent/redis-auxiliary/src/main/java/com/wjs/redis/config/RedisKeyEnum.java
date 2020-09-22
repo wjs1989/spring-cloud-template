@@ -1,4 +1,4 @@
-package com.wjs.seckill.config.redis.config;
+package com.wjs.redis.config;
 
 import org.springframework.data.redis.connection.DataType;
 
@@ -12,7 +12,8 @@ import java.util.Random;
 public enum RedisKeyEnum {
     DISTRICT_TREE("district_tree",600,800,DataType.STRING),
     DISTRICT_CODE("district_code::",1000,1200,DataType.STRING),
-    DISTRICT_ID("district_id::",1000,1200,DataType.STRING);
+    DISTRICT_ID("district_id::",1000,1200,DataType.STRING),
+    DISTRICT_HASH("district_hash",1000,1200,DataType.HASH);
 
     private String key;
     private DataType dataType;

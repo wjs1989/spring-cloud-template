@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class Goods{
+public class Goods implements Serializable{
 
     private Long id;
 

@@ -1,6 +1,5 @@
 package com.wjs.event.model;
 
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.List;
  * @Description: 事件基础数据模型
  * @date 2020/9/1 16:17
  */
-@Data
 public class EventBasicDataModel {
     /**
      * 事件名称
@@ -39,4 +37,36 @@ public class EventBasicDataModel {
         list.add(param);
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<EventBasicParam> getList() {
+        return list;
+    }
+
+    public void setList(List<EventBasicParam> list) {
+        this.list = list;
+    }
 }

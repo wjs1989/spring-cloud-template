@@ -23,6 +23,7 @@ spring:
     port: 6380
     timeout: 5000
     password: redis-isky
+#    cache-ttl: 3000
     jedis:
       pool:
         max-active: 1000

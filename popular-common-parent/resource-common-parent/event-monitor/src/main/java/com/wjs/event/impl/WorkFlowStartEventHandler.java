@@ -6,7 +6,6 @@ import com.wjs.event.constant.EventConstant;
 import com.wjs.event.model.*;
 import com.wjs.event.model.dto.WorkFlowStartEvent;
 import com.wjs.event.model.dto.WorkFlowStartResult;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,6 @@ import java.util.List;
  * @Description:
  * @date 2020/8/31 17:11
  */
-@Slf4j
 @EventTypeSign(name = EventConstant.WORK_FLOW_START_NAME, value = EventConstant.WORK_FLOW_START)
 @Component
 public class WorkFlowStartEventHandler extends AbstractEventHandler<WorkFlowStartEvent> {

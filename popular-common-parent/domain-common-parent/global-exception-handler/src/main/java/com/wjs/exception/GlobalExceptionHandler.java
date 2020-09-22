@@ -3,7 +3,8 @@ package com.wjs.exception;
 import com.wjs.model.constant.MessageEnum;
 import com.wjs.model.exception.GlobalException;
 import com.wjs.model.vo.BaseResult;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,9 +18,11 @@ import java.io.InputStream;
  * @Description:
  * @date 2020/8/24 12:04
  */
-@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @ExceptionHandler(Exception.class)
     public BaseResult exception(Exception e)
     {
@@ -35,14 +38,6 @@ public class GlobalExceptionHandler {
         if(e.getMessageEnum() != null){
             return BaseResult.error(e.getMessageEnum());
         }
-        try(InputStream in = new FileInputStream("")){
-
-        } catch (FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-
         return BaseResult.error(e.getCode(),e.getMessage());
     }
 

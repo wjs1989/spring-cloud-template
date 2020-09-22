@@ -1,4 +1,4 @@
-package com.wjs.seckill.config.redis.config;
+package com.wjs.redis.config;
 
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
@@ -14,6 +14,7 @@ public class DefaultStrSerializer implements RedisSerializer<Object> {
     }
 
     public DefaultStrSerializer(Charset charset) {
+        Assert.notNull(charset, "Charset must not be null!");
         Assert.notNull(charset, "Charset must not be null!");
         this.charset = charset;
     }

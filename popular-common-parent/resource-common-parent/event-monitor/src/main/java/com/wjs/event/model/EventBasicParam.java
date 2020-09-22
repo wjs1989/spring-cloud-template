@@ -1,10 +1,8 @@
 package com.wjs.event.model;
 
-import lombok.Data;
 
 import java.util.List;
 
-@Data
 public class EventBasicParam {
     /**
      * 参数说明
@@ -29,4 +27,45 @@ public class EventBasicParam {
      * 事件select值域列表
      */
     private List<EventBasicSelect> list;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isRequest() {
+        return request;
+    }
+
+    public void setRequest(boolean request) {
+        this.request = request;
+    }
+
+    public List<EventBasicSelect> getList() {
+        return list;
+    }
+
+    public void setList(List<EventBasicSelect> list) {
+        this.list = list;
+    }
 }

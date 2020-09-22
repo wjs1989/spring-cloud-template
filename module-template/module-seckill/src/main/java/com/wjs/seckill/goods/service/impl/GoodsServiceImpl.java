@@ -12,6 +12,7 @@ import com.wjs.seckill.goods.mapper.GoodsMapper;
 import com.wjs.seckill.goods.mapper.GoodsOrderMapper;
 import com.wjs.seckill.goods.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -110,6 +111,13 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
             });
         } while (!seckillReslut && chance-- > 0);
         return seckillReslut;
+    }
+
+    @Cacheable(value="goods",key="#id")
+    @Override
+    public Goods cache(Long id) throws Exception {
+        Goods goods = baseMapper.selectById(id);
+        return goods;
     }
 
     private Long seckill(Long goodsId, Integer num) {

@@ -17,6 +17,7 @@
     <modules>
         <module>oauth2-resource</module>
         <module>event-monitor</module>
+        <module>redis-auxiliary</module>
     </modules>
 
     <properties>
@@ -24,6 +25,11 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
 
     </dependencies>
 

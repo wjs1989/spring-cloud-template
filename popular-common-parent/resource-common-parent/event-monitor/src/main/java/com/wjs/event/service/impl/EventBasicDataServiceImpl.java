@@ -5,7 +5,8 @@ import com.wjs.event.EventHandlerFactory;
 import com.wjs.event.model.EventBasicDataModel;
 import com.wjs.event.service.EventBasicDataService;
 import com.wjs.event.vo.EventBasicDataResp;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @Service
 public class EventBasicDataServiceImpl implements EventBasicDataService {
-
+    Logger log = LoggerFactory.getLogger(EventBasicDataServiceImpl.class);
     @Autowired
     private EventHandlerFactory eventHandlerFactory;
 
