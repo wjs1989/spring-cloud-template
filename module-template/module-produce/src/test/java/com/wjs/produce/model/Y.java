@@ -15,5 +15,6 @@ public class Y {
     @PostConstruct
     public void init(){
         System.out.println("y -------> init");
+
     }
 }
