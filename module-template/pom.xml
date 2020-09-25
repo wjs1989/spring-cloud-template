@@ -22,6 +22,7 @@
         <module>module-oauth2</module>
         <module>module-produce</module>
         <module>module-seckill</module>
+        <module>module-kafka</module>
     </modules>
 
     <properties>

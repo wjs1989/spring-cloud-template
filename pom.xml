@@ -37,6 +37,8 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <minio.version>3.0.10</minio.version>
         <spring.openfeign.version>2.2.0.RELEASE</spring.openfeign.version>
+        <kafka-streams.version>2.3.0</kafka-streams.version>
+        <kafka-client.version>2.3.0</kafka-client.version>
 
         <guava.version>20.0</guava.version>
     </properties>
@@ -117,6 +119,17 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka-streams.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

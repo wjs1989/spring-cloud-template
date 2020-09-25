@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    master:
+      username: root
+      password: 123456
+      jdbc-url: jdbc:mysql://118.24.22.139:8721/xian?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    slave:
+      username: root
+      password: 123456
+      jdbc-url: jdbc:mysql://118.24.22.139:8721/activiti?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
