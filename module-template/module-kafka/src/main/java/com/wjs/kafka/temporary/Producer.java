@@ -44,7 +44,6 @@ public class Producer {
                     record = new ProducerRecord<String,String>("topictest","sell",sb.toString());
                     producer.send(record);        /*发送消息--发送后不管*/
                     System.out.println("用户请求的商品："+sb.toString());
-                    Thread.sleep(2); //1秒钟发送500条(不考虑往Kafka中送入的耗时) 20多秒可以发送完
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

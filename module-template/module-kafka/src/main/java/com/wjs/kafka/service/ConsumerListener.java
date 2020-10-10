@@ -14,10 +14,7 @@ public class ConsumerListener {
 
     @KafkaListener(topics = {"topictest"},groupId = "2")
     public void listen(ConsumerRecord<?, ?> record) {
-        logger.info("收到消息的key: " + record.key());
-        logger.info("收到消息的value: " + record.value().toString());
-        logger.info("toJSONString: " + JSONObject.toJSONString(record) );
-        //OrderDto orderDto = JSONObject.parseObject(record.value().toString(), OrderDto.class);
+        logger.info("收到消息的key={},value={}: " ,record.key(),record.value().toString());
 
        // logger.info("GoodsId: {}",orderDto.getGoodsId());
 

@@ -43,11 +43,11 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public Goods querySeckillGoodsById(Long id) throws Exception {
 
-        String key = SeckillCostant.SECKILL_REIDS_KEY_PREFIX + id;
-        Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-        if (entries != null && !entries.isEmpty()) {
-            return MapUtils.mapToObject(entries, Goods.class);
-        }
+         String key = SeckillCostant.SECKILL_REIDS_KEY_PREFIX + id;
+//        Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
+//        if (entries != null && !entries.isEmpty()) {
+//            return MapUtils.mapToObject(entries, Goods.class);
+//        }
 
         Goods goods = baseMapper.selectById(id);
         redisTemplate.opsForHash().putAll(key, MapUtils.convertToMap(goods));

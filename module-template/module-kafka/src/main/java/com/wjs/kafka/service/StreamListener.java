@@ -4,14 +4,16 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 
-public class MyListener {
+@Component
+public class StreamListener {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    @KafkaListener(topics = {"topictest"},groupId = "123")
+    @KafkaListener(topics = {"topicstream"},groupId = "123")
     public void listen(ConsumerRecord<?, ?> record) {
-        logger.info("收到消息的key: " + record.key());
-        logger.info("收到消息的value: " + record.value().toString());
+        logger.info("收到消息的key={},value={}: " ,record.key(),record.value().toString());
+
     }
 }

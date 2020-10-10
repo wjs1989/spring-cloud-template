@@ -1,0 +1,44 @@
+{
+  "groups": [
+    {
+      "name": "wenjs.x",
+      "type": "com.wjs.produce.config.properties.XProperties",
+      "sourceType": "com.wjs.produce.config.properties.XProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "wenjs.x.name",
+      "type": "java.lang.String",
+      "description": "配置一个名字\/测试使用的。",
+      "sourceType": "com.wjs.produce.config.properties.XProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "wenjs.x.host-url",
+      "type": "java.lang.String",
+      "description": "配置一个地址/测试使用的。",
+      "sourceType": "com.wjs.produce.config.properties.XProperties",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "wenjs.x.servers",
+      "type": "java.util.List<String>",
+      "description": "配置一个地址/测试使用的。",
+      "sourceType": "com.wjs.produce.config.properties.XProperties"
+    },
+    {
+      "name": "wenjs.x.duration-time",
+      "type": "java.time.Duration",
+      "description": "配置一个时间。",
+      "sourceType": "com.wjs.produce.config.properties.XProperties"
+    },
+    {
+      "name": "wenjs.x.max-data-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "配置一个文本长度。",
+      "sourceType": "com.wjs.produce.config.properties.XProperties"
+    }
+  ],
+  "hints": []
+}
