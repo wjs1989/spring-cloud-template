@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/kafka")
 public class SendController {
@@ -27,6 +29,9 @@ public class SendController {
                 .setUserId(222L)
                 .setOrderId(333L)
                 .build();
+
+
+
 
         ListenableFuture send = kafkaTemplate.send("topictest", JSONObject.toJSONString(orderDto));
 

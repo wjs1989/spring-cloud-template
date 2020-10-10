@@ -6,6 +6,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Semaphore;
+
 @RestController
 public class UserController {
 
@@ -17,6 +21,10 @@ public class UserController {
 
     @GetMapping("/info")
     public String info(){
-        return x.getName();
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        return localDateTime.format(dtf);
     }
 }
