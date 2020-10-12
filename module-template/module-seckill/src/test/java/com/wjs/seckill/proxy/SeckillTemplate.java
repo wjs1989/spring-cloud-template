@@ -18,11 +18,11 @@ public class SeckillTemplate implements Connection {
     }
 
     private class SeckillInterceptor implements InvocationHandler {
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            DefaultSeckill defaultSeckill= new DefaultSeckill();
-            return  method.invoke(defaultSeckill,args);
+            //这里可以生成不同的执行对象
+            DefaultSeckill defaultSeckill = new DefaultSeckill();
+            return method.invoke(defaultSeckill, args);
         }
     }
 

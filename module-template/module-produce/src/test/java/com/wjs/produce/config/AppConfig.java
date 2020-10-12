@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Bean
-    public X getx(){
-        return new X();
-    }
+//    @Bean
+//    public X getx(){
+//        return new X();
+//    }
 
     @Bean
     public Y gety(){

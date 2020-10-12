@@ -39,7 +39,7 @@
         <spring.openfeign.version>2.2.0.RELEASE</spring.openfeign.version>
         <kafka-streams.version>2.3.0</kafka-streams.version>
         <kafka-client.version>2.3.0</kafka-client.version>
-
+        <seata.version>1.3.0</seata.version>
         <guava.version>20.0</guava.version>
     </properties>
 
@@ -130,6 +130,12 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka-client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
