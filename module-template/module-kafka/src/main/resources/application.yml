@@ -1,0 +1,8 @@
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: module-kafka
+  main:
+    allow-bean-definition-overriding: true
