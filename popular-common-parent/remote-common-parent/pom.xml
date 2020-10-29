@@ -16,6 +16,7 @@
 
     <modules>
         <module>user-remote</module>
+        <module>seata2-remote</module>
     </modules>
 
     <properties>

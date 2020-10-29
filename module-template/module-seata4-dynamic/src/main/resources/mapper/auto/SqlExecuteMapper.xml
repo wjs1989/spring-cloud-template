@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wjs.seata4.auto.mapper.SqlExecuteMapper" >
+	<!--
+	1. 增删改表的结构DDL
+		1. 创建表格
+		2. 复制表格
+		3. 删除表格
+		4. 增删改表的结构
+	2. 增删改表中的数据DML
+		1. 向表中添加数据
+		2. 修改表中的数据
+		3. 删除表中的数据
+	-->
+
+  <update id="exeDDLSql" parameterType="java.lang.Integer">
+          ${ddlSql}
+  </update>
+
+  <insert id="exeDMLInsertSql" parameterType="java.lang.Integer">
+          ${insertSql}
+  </insert>
+
+  <delete id="exeDMLDeleteSql" parameterType="java.lang.Integer">
+          ${deleteSql}
+  </delete>
+  
+  <select id="exeSelectSql"  resultType="java.util.Map">
+      	  ${selectSql}
+  </select>
+  
+  <update id="exeDMLUpdateSql" parameterType="java.lang.Integer">
+          ${updateSql}
+  </update>
+      
+</mapper>

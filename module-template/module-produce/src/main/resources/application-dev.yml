@@ -32,6 +32,10 @@ spring:
         min-idle: 30
         timeout: 10000
       database: 0
+  cloud:
+    service-registry:
+      auto-registration:
+        enabled: false
 
 eureka:
   instance:

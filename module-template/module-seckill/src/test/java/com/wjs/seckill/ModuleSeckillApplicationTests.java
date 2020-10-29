@@ -3,6 +3,8 @@ package com.wjs.seckill;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import org.xmlunit.util.Convert;
 
 import java.io.ObjectOutputStream;
@@ -25,6 +27,9 @@ class ModuleSeckillApplicationTests {
         System.out.println(Integer.toBinaryString(CAPACITY) );
 
         System.out.println(Integer.toBinaryString( -1<<1) );
+
+        WebApplicationContext applicationContext = ContextLoader.getCurrentWebApplicationContext();
+
     }
 
 }

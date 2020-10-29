@@ -3,6 +3,7 @@ package com.wjs.seckill.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Objects;
 
 public class SeckillTemplate implements Connection {
 
@@ -21,8 +22,15 @@ public class SeckillTemplate implements Connection {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             //这里可以生成不同的执行对象
+
             DefaultSeckill defaultSeckill = new DefaultSeckill();
-            return method.invoke(defaultSeckill, args);
+            Object result = new Object();
+            Advisor[] advisors = new Advisor[10];
+            for (Advisor advisor : advisors) {
+                result = advisor.invoke(null);
+            }
+
+            return result;
         }
     }
 

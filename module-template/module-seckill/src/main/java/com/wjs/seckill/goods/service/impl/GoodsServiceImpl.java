@@ -10,6 +10,7 @@ import com.wjs.seckill.goods.entity.Goods;
 import com.wjs.seckill.goods.entity.GoodsOrder;
 import com.wjs.seckill.goods.mapper.GoodsMapper;
 import com.wjs.seckill.goods.mapper.GoodsOrderMapper;
+import com.wjs.seckill.goods.service.GoodsOrderService;
 import com.wjs.seckill.goods.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.ArrayList;
@@ -40,6 +42,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Autowired
     private GoodsOrderMapper goodsOrderMapper;
 
+    @Autowired
+    private GoodsOrderService goodsOrderService;
+
+    @Transactional
     @Override
     public Goods querySeckillGoodsById(Long id) throws Exception {
 
@@ -50,8 +56,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 //        }
 
         Goods goods = baseMapper.selectById(id);
-        redisTemplate.opsForHash().putAll(key, MapUtils.convertToMap(goods));
-        redisTemplate.expire(key, 10, TimeUnit.SECONDS);
+        goodsOrderService.queryById(1L);
+        //redisTemplate.opsForHash().putAll(key, MapUtils.convertToMap(goods));
+        //redisTemplate.expire(key, 10, TimeUnit.SECONDS);
         return goods;
     }
 
