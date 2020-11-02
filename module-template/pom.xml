@@ -27,6 +27,7 @@
         <module>model-seata2</module>
         <module>model-seata3</module>
         <module>module-nacos-client</module>
+        <module>module-lottery</module>
     </modules>
 
     <properties>
