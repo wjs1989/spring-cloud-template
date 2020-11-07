@@ -1,7 +1,8 @@
+
 spring:
   profiles:
     active: dev
   application:
-    name: gateway-server
+    name: module-kafka
   main:
-    allow-bean-definition-overriding: true
+    allow-bean-definition-overriding: true 

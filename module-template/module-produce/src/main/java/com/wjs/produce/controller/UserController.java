@@ -1,6 +1,7 @@
 package com.wjs.produce.controller;
 
 import com.wjs.produce.model.X;
+import com.wjs.produce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,12 @@ public class UserController {
     @Autowired
     private X x;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/info")
     public String info(){
+        userService.doQuery();
 
         LocalDateTime localDateTime = LocalDateTime.now();
 

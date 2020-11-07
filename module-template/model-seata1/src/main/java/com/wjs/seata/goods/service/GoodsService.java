@@ -11,4 +11,7 @@ import java.util.List;
 public interface GoodsService extends IService<Goods> {
 
     Long seckill(Long goodsId, Integer num);
+
+    void scekillRemote();
+    void scekillRemote1();
 }

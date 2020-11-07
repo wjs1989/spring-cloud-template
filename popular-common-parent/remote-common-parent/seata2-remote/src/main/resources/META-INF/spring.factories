@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.wjs.seata2.remote.Seata2RemoteConfiguration

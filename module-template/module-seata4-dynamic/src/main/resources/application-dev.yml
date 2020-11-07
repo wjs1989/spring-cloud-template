@@ -1,0 +1,33 @@
+server:
+  port: 10622
+
+spring:
+  datasource:
+    goods:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://118.24.22.139:8721/goods?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+    member:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://118.24.22.139:8721/member?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: seata-server
+
+mybatis-plus:
+  # 扫描mapper.xml文件
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  # 扫描实体类
+  typeAliasesPackage: com.wjs.seata.*.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-prefix: ----------------------
+  global-config:
+    db-config:
+      logic-delete-value: 0 #逻辑删除值 默认1
+      logic-not-delete-value: 1 #逻辑未删除值 默认 0
+      logic-delete-field: valid #全局逻辑删除字段 或者在实体字段上配置 @TableLogic

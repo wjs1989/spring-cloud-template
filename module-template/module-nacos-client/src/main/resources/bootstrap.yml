@@ -1,0 +1,18 @@
+server:
+  port: 10623
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: module-nacos-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.204.125.109:8848
+      config:
+        server-addr: 10.204.125.109:8848
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

@@ -18,6 +18,7 @@
         <module>oauth2-resource</module>
         <module>event-monitor</module>
         <module>redis-auxiliary</module>
+        <module>ehcache-auxiliary</module>
     </modules>
 
     <properties>
