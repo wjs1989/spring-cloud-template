@@ -7,13 +7,14 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 //@Component
-public class StreamListener {
+public class ConsumerListener1 {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
-    @KafkaListener(topics = {"topicstream"},groupId = "123")
+    @KafkaListener(topics = {"topictest"},groupId = "2",clientIdPrefix = "client2")
     public void listen(ConsumerRecord<?, ?> record) {
-        logger.info("收到消息的key={},value={}: " ,record.key(),record.value().toString());
+        logger.info("listen1收到消息的key={},value={}: " ,record.key(),record.value().toString());
+
+       // logger.info("GoodsId: {}",orderDto.getGoodsId());
 
     }
 }

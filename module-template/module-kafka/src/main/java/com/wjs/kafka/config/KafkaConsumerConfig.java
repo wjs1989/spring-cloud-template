@@ -2,7 +2,9 @@ package com.wjs.kafka.config;
 
 import com.wjs.kafka.service.MyListener;
 import com.wjs.kafka.service.MyListenerAck;
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +41,8 @@ public class KafkaConsumerConfig {
     private int concurrency;
 
     public Map<String, Object> consumerConfigs() {
+        //System.setProperty("java.security.auth.login.config", "F:/kafka_client_jaas.conf");
+
         Map<String, Object> propsMap = new HashMap<>();
         propsMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
         propsMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, enableAutoCommit);
@@ -48,6 +52,13 @@ public class KafkaConsumerConfig {
         propsMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
+
+
+        propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+        propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"writer\" password=\"123456\";");
+
         return propsMap;
     }
 
@@ -55,7 +66,7 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
 
-    @Bean
+   // @Bean
     public MyListener listener() {
         return new MyListener();
     }
@@ -67,6 +78,7 @@ public class KafkaConsumerConfig {
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(concurrency);
+        factory.setBatchListener(true);
         factory.getContainerProperties().setPollTimeout(1500);
         return factory;
     }
@@ -86,7 +98,7 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(consumerConfigsAck());
     }
 
-    @Bean("listenerAck")
+    //@Bean("listenerAck")
     public MyListenerAck listenerAck() {
         return new MyListenerAck();
     }

@@ -1,37 +1,28 @@
 server:
   port: 10720
 
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://118.24.22.139:8721/lottery?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: 123456
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      connection-timeout: 30000
-      auto-commit: true
-      max-lifetime: 1800000
-      pool-name: DatebookHikariCP
-      minimum-idle: 5
-      connection-test-query: SELECT 1
-      idle-timeout: 30000
-      maximum-pool-size: 15
-  redis:
-    host: 10.204.125.208
-    port: 6380
-    timeout: 5000
-    password: redis-isky
-#    cache-ttl: 3000
-    jedis:
-      pool:
-        max-active: 1000
-        max-wait: 10000
-        max-idle: 100
-        min-idle: 30
-        timeout: 10000
-      database: 0
+
+    type: com.alibaba.druid.pool.DruidDataSource
+    minEvictableIdleTimeMillis: 300000
+    poolPreparedStatements: true
+    filters: stat,wall,log4j
+    testOnBorrow: false
+    maxActive: 20
+    validationQuery: SELECT 1 FROM DUAL
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    maxWait: 60000
+    testOnReturn: false
+    minIdle: 5
+    maxPoolPreparedStatementPerConnectionSize: 20
+    initialSize: 5
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
 
 eureka:
   instance:

@@ -4,7 +4,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.kafka.support.ProducerListener;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class SendListener implements ProducerListener {
 
     @Override

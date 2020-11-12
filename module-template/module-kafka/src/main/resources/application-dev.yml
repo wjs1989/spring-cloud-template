@@ -19,7 +19,7 @@ spring:
       auto-commit-interval: 100
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      concurrency: 10
+      concurrency: 2
 
 
 eureka:
