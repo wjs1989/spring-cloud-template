@@ -27,6 +27,11 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
         <!-- 查看对象头 -->
         <dependency>
             <groupId>org.openjdk.jol</groupId>
