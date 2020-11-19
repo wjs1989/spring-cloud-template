@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -23,6 +25,8 @@ public class FileWatchSubject {
     private List<AbstractWatchObserver> observers = new ArrayList<AbstractWatchObserver>();
     //文件变化列表
     private LinkedBlockingQueue<FileModifyDto> watchList = new LinkedBlockingQueue<>();
+
+    ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     public void attach(AbstractWatchObserver observer) {
         observers.add(observer);
@@ -46,7 +50,7 @@ public class FileWatchSubject {
             }
         };
 
-        new Thread(runnable).start();
+        executorService.submit(runnable);
     }
 
     public void AddWatchList(FileModifyDto watch) {

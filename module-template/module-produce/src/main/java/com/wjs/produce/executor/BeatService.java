@@ -1,5 +1,7 @@
 package com.wjs.produce.executor;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.*;
 
 public class BeatService {
@@ -31,9 +33,20 @@ public class BeatService {
         }
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName());
-            System.out.println(beatInfo.getName());
+            System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                     "->"+  Thread.currentThread().getName()+":"+beatInfo.getName());
             BeatService.this.es.schedule(BeatService.this.new BeatTask(this.beatInfo),5000,TimeUnit.MILLISECONDS);
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+
+        BeatService beatService = new BeatService();
+        BeatInfo beatInfo = new BeatInfo();
+        beatInfo.setName("module-kafka");
+
+        beatService.bate(beatInfo);
+
+        Thread.sleep(100000);
     }
 }
