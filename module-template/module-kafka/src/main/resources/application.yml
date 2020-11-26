@@ -5,4 +5,4 @@ spring:
   application:
     name: module-kafka
   main:
-    allow-bean-definition-overriding: true 
+    allow-bean-definition-overriding: true
