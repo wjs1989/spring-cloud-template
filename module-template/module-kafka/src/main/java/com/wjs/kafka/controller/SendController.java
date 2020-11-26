@@ -23,17 +23,16 @@ public class SendController {
 
 
     @GetMapping("/send")
-    public BaseResult<String> getSeckillInfo() throws Exception{
-        OrderDto orderDto = OrderDto.createBuilder()
-                .setGoodsId(111L)
-                .setUserId(222L)
-                .setOrderId(333L)
-                .build();
-
-
-
-
-        ListenableFuture send = kafkaTemplate.send("topictest", JSONObject.toJSONString(orderDto));
+    public BaseResult<String> getSeckillInfo() throws Exception{ 
+        int a =0;
+        while(a++ < 1000000) {
+            OrderDto orderDto = OrderDto.createBuilder()
+                    .setGoodsId((long)a)
+                    .setUserId(222L)
+                    .setOrderId(333L)
+                    .build();
+            ListenableFuture send = kafkaTemplate.send("topic-hello", JSONObject.toJSONString(orderDto));
+        }
 
         return BaseResult.success();
     }

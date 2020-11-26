@@ -41,6 +41,8 @@ public class KafkaConsumerConfig {
     private int concurrency;
 
     public Map<String, Object> consumerConfigs() {
+        //System.setProperty("java.security.auth.login.config", "F:/kafka_client_jaas.conf");
+
         Map<String, Object> propsMap = new HashMap<>();
         propsMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
         propsMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, enableAutoCommit);
@@ -51,11 +53,20 @@ public class KafkaConsumerConfig {
         propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
 
+<<<<<<< HEAD
         // 这里设置SASL连接
        propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
         propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
                 "org.apache.kafka.common.security.plain.PlainLoginModule required  username=\"admin\"  password=\"admin\";");
+=======
+
+        propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+        propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"writer\" password=\"123456\";");
+
+>>>>>>> 42c0a74295a3319939547addf2912bc9ffdbd9d2
         return propsMap;
     }
 
@@ -63,7 +74,7 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
 
-    @Bean
+   // @Bean
     public MyListener listener() {
         return new MyListener();
     }
@@ -75,6 +86,7 @@ public class KafkaConsumerConfig {
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(concurrency);
+        factory.setBatchListener(true);
         factory.getContainerProperties().setPollTimeout(1500);
         return factory;
     }
@@ -94,7 +106,7 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(consumerConfigsAck());
     }
 
-    @Bean("listenerAck")
+    //@Bean("listenerAck")
     public MyListenerAck listenerAck() {
         return new MyListenerAck();
     }

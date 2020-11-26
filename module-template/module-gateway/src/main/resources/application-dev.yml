@@ -21,13 +21,17 @@ spring:
             allowed-methods: "*"
             max-age: 3600
       routes:
-        - id: designer-service
-          uri: lb://designer-service
+        - id: module-kafka
+          uri: lb://module-kafka
           predicates:
-            - Path=/designer/**
+            - Path=/kafka/**
           filters:
             - StripPrefix=1
         #   - SaveSession
+            - name: MyCookies
+              args:
+                name: fallbackcmd
+                enable: true
 
 eureka:
   instance:
@@ -35,3 +39,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://10.204.125.109:8863/eureka/
+    fetch-registry: true
+    registry-fetch-interval-seconds: 2 #2s就更新服务

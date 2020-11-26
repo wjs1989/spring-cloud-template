@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class StreamListener {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
