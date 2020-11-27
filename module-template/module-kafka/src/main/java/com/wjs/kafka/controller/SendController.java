@@ -22,10 +22,12 @@ public class SendController {
     private KafkaTemplate kafkaTemplate;
 
 
+
+
     @GetMapping("/send")
     public BaseResult<String> getSeckillInfo() throws Exception{ 
         int a =0;
-        while(a++ < 1000000) {
+        while(a++ < 10) {
             OrderDto orderDto = OrderDto.createBuilder()
                     .setGoodsId((long)a)
                     .setUserId(222L)

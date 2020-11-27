@@ -28,3 +28,16 @@ eureka:
   client:
     service-url:
       defaultZone: http://10.204.125.109:8863/eureka/
+
+wechat:
+  minis:
+    - appid: wxeb20873968183f4c
+      secret: 105a9574e4ff17f6978a2f25d853442e
+      grant_type: authorization_code
+      roles:
+        - ababab
+    - appid: wxeb20873968183f4c
+      secret: 105a9574e4ff17f6978a2f25d853442e
+      grant_type: authorization_code
+      roles:
+        - ababab

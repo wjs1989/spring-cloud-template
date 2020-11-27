@@ -15,7 +15,7 @@ public class KafkaTest {
     private static AdminClient adminClient;
 
     public static void createTopics() {
-        NewTopic newTopic = new NewTopic(NEW_TOPIC,4, (short) 1);
+        NewTopic newTopic = new NewTopic(NEW_TOPIC, 4, (short) 1);
         Collection<NewTopic> newTopicList = new ArrayList<>();
         newTopicList.add(newTopic);
         adminClient.createTopics(newTopicList);
@@ -35,7 +35,7 @@ public class KafkaTest {
     }
 
 
-    public static void  listTopics(){
+    public static void listTopics() {
         ListTopicsResult listTopicsResult = adminClient.listTopics();
         Set<String> strings = null;
         try {
@@ -45,7 +45,7 @@ public class KafkaTest {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        strings.forEach(s->{
+        strings.forEach(s -> {
             System.out.println(s);
         });
 

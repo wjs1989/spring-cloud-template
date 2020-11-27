@@ -59,6 +59,11 @@
             <artifactId>minio</artifactId>
             <version>3.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
