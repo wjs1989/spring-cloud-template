@@ -42,7 +42,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://10.204.125.109:8863/eureka/
+      defaultZone: http://localhost:8863/eureka/
 
 mybatis-plus:
   # 扫描mapper.xml文件

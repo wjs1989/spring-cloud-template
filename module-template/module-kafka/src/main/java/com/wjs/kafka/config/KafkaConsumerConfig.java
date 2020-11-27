@@ -53,12 +53,20 @@ public class KafkaConsumerConfig {
         propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
 
+<<<<<<< HEAD
+        // 这里设置SASL连接
+       propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+        propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
+                "org.apache.kafka.common.security.plain.PlainLoginModule required  username=\"admin\"  password=\"admin\";");
+=======
 
         propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
         propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
                 "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"writer\" password=\"123456\";");
 
+>>>>>>> 42c0a74295a3319939547addf2912bc9ffdbd9d2
         return propsMap;
     }
 

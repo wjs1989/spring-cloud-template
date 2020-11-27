@@ -1,5 +1,8 @@
 package com.wjs.produce;
 
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,6 +25,10 @@ public class Test1 {
 
         Thread.sleep(1000);
         stop = true;
+
+       // BeanDefinitionRegistryPostProcessor
+
+
 
     }
 
