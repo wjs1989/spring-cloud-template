@@ -7,6 +7,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketClientCompressionHandler;
+import io.netty.handler.stream.ChunkedWriteHandler;
 
 import java.net.InetSocketAddress;
 
@@ -28,16 +32,21 @@ public class EchoClient {
     public void start() throws InterruptedException {
 
         /*线程组*/
-        EventLoopGroup group  = new NioEventLoopGroup();
+        EventLoopGroup group = new NioEventLoopGroup();
         try {
             /*客户端启动必备*/
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)/*指定使用NIO的通信模式*/
-                    .remoteAddress(new InetSocketAddress(host,port))/*指定服务器的IP地址和端口*/
+                    .remoteAddress(new InetSocketAddress(host, port))/*指定服务器的IP地址和端口*/
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new HttpServerCodec());
+                            ch.pipeline().addLast(new ChunkedWriteHandler());
+                            ch.pipeline().addLast(new HttpObjectAggregator(8192));
+
+                            ch.pipeline().addLast(WebSocketClientCompressionHandler.INSTANCE);
                             ch.pipeline().addLast(new EchoClientHandler());
 
                         }
@@ -51,6 +60,9 @@ public class EchoClient {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        new EchoClient(9999,"127.0.0.1").start();
+          final String URL
+                = System.getProperty("url",
+                "ws://127.0.0.1:8080/websocket");
+        new EchoClient(8087, "localhost").start();
     }
 }

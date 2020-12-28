@@ -140,6 +140,51 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+
+
+    <!--异步打印日志,任务放在阻塞队列中，如果队列达到80%，将会丢弃TRACE,DEBUG,INFO级别的日志任务，对性能要求不是太高的话不用启用-->
+    <appender name="ASYNCCONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <!--队列的深度，该值会影响性能，默认256-->
+        <queueSize>512</queueSize>
+        <!--设为0表示队列达到80%，也不丢弃任务-->
+        <discardingThreshold>0</discardingThreshold>
+        <!--日志上下文关闭后，AsyncAppender继续执行写任务的时间，单位毫秒-->
+        <maxFlushTime>1000</maxFlushTime>
+        <!--队列满了直接丢弃要写的消息-->
+        <neverBlock>true</neverBlock>
+        <!--是否包含调用方的信息，false则无法打印类名方法名行号等-->
+        <includeCallerData>true</includeCallerData>
+        <!--One and only one appender may be attached to AsyncAppender，添加多个的话后面的会被忽略-->
+        <appender-ref ref="CONSOLE"/>
+    </appender>
+    <appender name="INFO_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!--队列的深度，该值会影响性能，默认256-->
+        <queueSize>512</queueSize>
+        <!--设为0表示队列达到80%，也不丢弃任务-->
+        <discardingThreshold>0</discardingThreshold>
+        <!--日志上下文关闭后，AsyncAppender继续执行写任务的时间，单位毫秒-->
+        <maxFlushTime>1000</maxFlushTime>
+        <!--队列满了直接丢弃要写的消息-->
+        <neverBlock>true</neverBlock>
+        <!--是否包含调用方的信息，false则无法打印类名方法名行号等-->
+        <includeCallerData>true</includeCallerData>
+        <!--One and only one appender may be attached to AsyncAppender，添加多个的话后面的会被忽略-->
+        <appender-ref ref="INFO_FILE"/>
+    </appender>
+    <appender name="ERROR_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>256</queueSize>
+        <!--设为0表示队列达到80%，也不丢弃任务-->
+        <discardingThreshold>0</discardingThreshold>
+        <!--日志上下文关闭后，AsyncAppender继续执行写任务的时间，单位毫秒-->
+        <maxFlushTime>1000</maxFlushTime>
+        <!--队列满了直接丢弃要写的消息，不阻塞写入队列-->
+        <neverBlock>true</neverBlock>
+        <!--是否包含调用方的信息，false则无法打印类名方法名行号等-->
+        <includeCallerData>true</includeCallerData>
+        <!--One and only one appender may be attached to AsyncAppender，添加多个的话后面的会被忽略-->
+        <appender-ref ref="ERROR_FILE"/>
+    </appender>
+
     <!--
 <logger>用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender>。
 <logger>仅有一个name属性，
@@ -179,10 +224,9 @@ level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERR
 可以包含零个或多个appender元素。
 -->
     <root level="INFO">
+<!--        <appender-ref ref="ASYNCCONSOLE" />-->
+<!--        <appender-ref ref="ERROR_ASYNC" />-->
+<!--        <appender-ref ref="INFO_ASYNC" />-->
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="INFO_FILE" />
-        <appender-ref ref="WARN_FILE" />
-        <appender-ref ref="ERROR_FILE" />
-        <appender-ref ref="DEBUG_FILE" />
     </root>
 </configuration>

@@ -20,8 +20,8 @@ import javax.sql.DataSource;
  * @Description:
  * @date 2020/7/27 18:50
  */
-@Configuration
-@MapperScan(basePackages = "com.wjs.seata.goods.mapper", sqlSessionFactoryRef = "goodsSqlSessionFactory", sqlSessionTemplateRef = "goodsSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = "com.wjs.seata.goods.mapper", sqlSessionFactoryRef = "goodsSqlSessionFactory", sqlSessionTemplateRef = "goodsSqlSessionTemplate")
 public class GoodsDataSourceConfigurer {
     @Bean(name = "goodsDataSource")
     @ConfigurationProperties("spring.datasource.goods")

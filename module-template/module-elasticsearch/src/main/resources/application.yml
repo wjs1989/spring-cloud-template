@@ -1,0 +1,5 @@
+es:
+  host: 10.204.125.108
+  port: 9200
+  scheme: http
+

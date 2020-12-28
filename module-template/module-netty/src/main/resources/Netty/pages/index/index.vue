@@ -16,52 +16,45 @@
 		data() {
 			return {
 				title: 'Hello',
-				ws:null
+				ws: null
 			}
 		},
 		onLoad() {
-	this.$mp.page.$vm.WebSocketTest();
+			this.$mp.page.$vm.WebSocketTest();
 		},
 		methods: {
-                WebSocketTest: function(p) {
-                         if ("WebSocket" in window)
-                         {
-                           // alert("您的浏览器支持 WebSocket!");
-                            
-                            // 打开一个 web socket
-                             var ws = new WebSocket("ws://localhost:8088/ws");
-							 this.ws =ws;
-                             
-                            ws.onopen = function()
-                            {
-                               // Web Socket 已连接上，使用 send() 方法发送数据
-                               ws.send("发送数据");
-                           
-                            };
-                             
-                            ws.onmessage = function (evt) 
-                            { 
-                              this.title = evt.data;
-                               alert(evt.data);
-                            };
-                             
-                            ws.onclose = function()
-                            { 
-                               // 关闭 websocket
-                               alert("连接已关闭..."); 
-                            };
-                         }
-                         
-                         else
-                         {
-                            // 浏览器不支持 WebSocket
-                            alert("您的浏览器不支持 WebSocket!");
-                         }
-                      }  ,
-						  
-					  send:function(){ 
-						     this.ws.send("发送数据");
-					  }
+			WebSocketTest: function(p) {
+				var that = this;
+				if ("WebSocket" in window) {
+					// alert("您的浏览器支持 WebSocket!");
+
+					// 打开一个 web socket
+					var ws = new WebSocket("ws://localhost:8088/websocket");
+					that.ws = ws;
+
+					ws.onopen = function() {
+						// Web Socket 已连接上，使用 send() 方法发送数据
+						ws.send("发送数据");
+
+					};
+
+					ws.onmessage = function(evt) {
+						that.title = evt.data; 
+					};
+
+					ws.onclose = function() {
+						// 关闭 websocket
+						alert("连接已关闭...");
+					};
+				} else {
+					// 浏览器不支持 WebSocket
+					alert("您的浏览器不支持 WebSocket!");
+				}
+			},
+
+			send: function() {
+				this.ws.send("发送数据");
+			}
 		}
 	}
 </script>

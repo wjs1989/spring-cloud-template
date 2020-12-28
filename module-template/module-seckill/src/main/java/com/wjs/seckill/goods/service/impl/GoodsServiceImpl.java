@@ -136,7 +136,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         keyList.add(SeckillCostant.SECKILL_REIDS_KEY_PREFIX + goodsId);
         keyList.add(SeckillCostant.SECKILL_SKU_FIELD);
         System.out.println(redisScript.getScriptAsString());
-
         Long sku = redisTemplate.execute(redisScript, keyList, num);
         return sku;
     }

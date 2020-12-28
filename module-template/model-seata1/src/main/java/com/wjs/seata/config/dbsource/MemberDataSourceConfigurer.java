@@ -19,8 +19,8 @@ import javax.sql.DataSource;
  * @Description:
  * @date 2020/7/27 18:50
  */
-@Configuration
-@MapperScan(basePackages = "com.wjs.seata.member.mapper",sqlSessionFactoryRef = "memberSqlSessionFactory",sqlSessionTemplateRef="memberSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = "com.wjs.seata.member.mapper",sqlSessionFactoryRef = "memberSqlSessionFactory",sqlSessionTemplateRef="memberSqlSessionTemplate")
 public class MemberDataSourceConfigurer {
     @Bean(name = "memberDataSource")
     @ConfigurationProperties("spring.datasource.member")
