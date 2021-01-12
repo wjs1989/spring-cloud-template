@@ -3,8 +3,10 @@ package com.wjs.model.util;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class BeanUtils extends org.springframework.beans.BeanUtils{
 
@@ -42,4 +44,21 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
         });
     }
 
+    public static <S,T> List<T> copyPropertiesList(List<S> source, Supplier<T> targetFun) {
+        if (CollectionUtils.isEmpty(source) || targetFun == null) {
+            return null;
+        }
+        List<T> result = new ArrayList<>();
+
+        for (S s : source) {
+            try {
+                T t = targetFun.get();
+                org.springframework.beans.BeanUtils.copyProperties(s, t);
+                result.add(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }
