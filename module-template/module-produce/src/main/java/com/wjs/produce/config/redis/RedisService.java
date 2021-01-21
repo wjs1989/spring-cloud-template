@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisService {
-    static Logger logger = LoggerFactory.getLogger(com.isky.visual.redis.RedisService.class);
+    static Logger logger = LoggerFactory.getLogger(RedisService.class);
 
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;

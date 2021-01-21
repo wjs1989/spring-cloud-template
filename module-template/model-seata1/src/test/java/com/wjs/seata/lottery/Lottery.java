@@ -12,12 +12,14 @@ public class Lottery {
     public void init() {
         Set<Integer> redNumber = new TreeSet<>();
         do {
-            redNumber.add(new Random().nextInt(34) + 1);
+            int i = new Random().nextInt(32);
+            redNumber.add(Math.abs((new Random().nextInt(Integer.MAX_VALUE) << i) % 34 + 1));
         } while (redNumber.size() < 5);
 
         Set<Integer> blueNumber = new TreeSet<>();
         do {
-            blueNumber.add(new Random().nextInt(12) + 1);
+            int i = new Random().nextInt(32);
+            blueNumber.add(Math.abs((new Random().nextInt(Integer.MAX_VALUE) << i) % 12 + 1));
         } while (blueNumber.size() < 2);
 
         Integer[] r = redNumber.toArray(new Integer[5]);
