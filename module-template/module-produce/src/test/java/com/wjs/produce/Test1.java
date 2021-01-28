@@ -2,6 +2,7 @@ package com.wjs.produce;
 
 import sun.misc.ProxyGenerator;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.concurrent.*;
 public class Test1 {
     private static boolean stop;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
 //        Thread thread = new Thread(() -> {
 //            int i = 0;
@@ -42,10 +43,10 @@ public class Test1 {
 
 //        System.out.println(getName("a"));
 
-        Map<Hello, String> identityHashMap2 = new IdentityHashMap<>();
-        Hello hello1 = new Hello();
-        identityHashMap2.put(hello1, "1");
-        System.out.println(identityHashMap2.get(hello1)); //1
+//        Map<Hello, String> identityHashMap2 = new IdentityHashMap<>();
+//        Hello hello1 = new Hello();
+//        identityHashMap2.put(hello1, "1");
+//        System.out.println(identityHashMap2.get(hello1)); //1
 
 // 使用泛型类
 //        Hello hello = new Hello();
@@ -54,6 +55,10 @@ public class Test1 {
 //
 //// 通过泛型类获取数据
 //        Hello data = result.getData();
+
+
+        String cmd ="mysqldump -h10.204.125.132 -uroot -p123456 -P36542 aa>/mysqldata/xian.sql;";
+        Runtime.getRuntime().exec(cmd);
     }
     public static class Hello {
         private Integer id;
