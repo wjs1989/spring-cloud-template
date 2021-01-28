@@ -3,7 +3,6 @@ package com.wjs.model.util;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
@@ -12,7 +11,9 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
 
 
     /**
-     * 封装{@link org.apache.commons.collections.CollectionUtils#collect}方法和{@link org.springframework.beans.BeanUtils#copyProperties}方法，常用与批量将Bean转换为DTO
+     * 封装{@link org.apache.commons.collections.CollectionUtils#collect}
+     * 方法和{@link org.springframework.beans.BeanUtils#copyProperties}方法，
+     * 常用与批量将Bean转换为DTO
      *
      *<pre>
      *     List<UserBean> userBeans = userDao.queryUsers();
@@ -38,7 +39,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-                BeanUtils.copyProperties(input, instance);
+                copyProperties(input, instance);
                 return instance;
             }
         });
@@ -48,17 +49,16 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
         if (CollectionUtils.isEmpty(source) || targetFun == null) {
             return null;
         }
-        List<T> result = new ArrayList<>();
 
-        for (S s : source) {
+        return (List<T>) CollectionUtils.collect(source, (input)-> {
+            T instance = null;
             try {
-                T t = targetFun.get();
-                org.springframework.beans.BeanUtils.copyProperties(s, t);
-                result.add(t);
+                instance = targetFun.get();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        }
-        return result;
+            copyProperties(input, instance);
+            return instance;
+        });
     }
 }
