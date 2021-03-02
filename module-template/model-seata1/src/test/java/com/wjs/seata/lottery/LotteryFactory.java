@@ -3,6 +3,7 @@ package com.wjs.seata.lottery;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LotteryFactory {
 
@@ -10,8 +11,8 @@ public class LotteryFactory {
 
         Set<String> historyData = createHistoryData();
 
-        Map<String, Integer> cache = new HashMap<>();
-        for (int i = 0; i < 100000000; i++) {
+        Map<String, Integer> cache = new HashMap<>(10000000);
+        for (long i = 0; i < 1000000000L; i++) {
             Lottery lottery = new Lottery();
             lottery.init();
             String key = lottery.toString();
@@ -26,19 +27,33 @@ public class LotteryFactory {
             }
         }
 
+        Map<String, Integer> cacheNew = cache.entrySet().stream().filter(c -> c.getValue().equals(1)).collect(Collectors.toMap(c -> c.getKey(), c -> c.getValue()));
+
         List<Map.Entry<String, Integer>> list = new ArrayList<>();
-        list.addAll(cache.entrySet());
+        list.addAll(cacheNew.entrySet());
 
-        Collections.sort(list, (a, b) -> a.getValue() - b.getValue());
+//         Collections.sort(list, (a, b) -> a.getValue() - b.getValue());
+//
+//         Iterator<Map.Entry<String, Integer>> it = list.iterator();
+// //        while (it.hasNext()){
+// //            System.out.println(it.next().getKey());
+// //        }
+//
+//         for (int i = 0; ; i++, it.hasNext()) {
+//             Map.Entry<String, Integer> next = it.next();
+//             if(next.getValue().equals(1)){
+//                 System.out.println(next.getKey() + "->" + next.getValue());
+//             }else{
+//                 return;
+//             }
+//         }
 
-        Iterator<Map.Entry<String, Integer>> it = list.iterator();
-//        while (it.hasNext()){
-//            System.out.println(it.next().getKey());
-//        }
-
-        for (int i = 0; i < 5; i++, it.hasNext()) {
-            Map.Entry<String, Integer> next = it.next();
-            System.out.println(next.getKey() + "->" + next.getValue());
+        int size = list.size();
+        for (int i = 0; i < 5; i++) {
+            Random random = new Random();
+            int index = random.nextInt(size * 37) * 37 % size;
+            Map.Entry<String, Integer> next = list.get(index);
+            System.out.println(next.getKey() + "->" + next.getValue() + "->" + index);
         }
     }
 

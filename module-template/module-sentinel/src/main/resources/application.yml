@@ -3,4 +3,6 @@ spring:
     sentinel:
       transport:
         port: 8719
-        dashboard: 10.204.125.132:18080
+        dashboard: 10.204.125.109:10802
+  application:
+    name: hello-server

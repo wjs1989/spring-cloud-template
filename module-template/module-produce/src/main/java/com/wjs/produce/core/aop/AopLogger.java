@@ -25,7 +25,7 @@ public class AopLogger {
     // @annotation(org.springframework.transaction.annotation.Transactional)
     //@within(org.springframework.transaction.annotation.Transactional)
     //凡是注解了RequestMapping的方法都被拦截
-//    @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
+   // @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
 //////    private void webPointcut() {
 //////    }
 //////

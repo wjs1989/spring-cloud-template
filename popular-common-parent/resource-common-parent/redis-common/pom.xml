@@ -4,35 +4,26 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wjs.template</groupId>
-        <artifactId>popular-common-parent</artifactId>
+        <artifactId>resource-common-parent</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.wjs.template</groupId>
-    <artifactId>resource-common-parent</artifactId>
+    <groupId>com.isky.redis</groupId>
+    <artifactId>redis-common</artifactId>
     <version>1.0.0</version>
-    <name>resource-common-parent</name>
-    <packaging>pom</packaging>
-    <description>资源父模板</description>
-
-    <modules>
-        <module>oauth2-resource</module>
-        <module>event-monitor</module>
-        <module>redis-auxiliary</module>
-        <module>ehcache-auxiliary</module>
-        <module>redis-common</module>
-    </modules>
-
+    <name>redis-common</name>
+    <description>redis project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
-
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
 
     </dependencies>
-
 </project>

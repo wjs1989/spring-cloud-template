@@ -1,6 +1,8 @@
 package com.wjs.seata.goods.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.ribbon.proxy.annotation.Hystrix;
 import com.wjs.seata.goods.entity.Goods;
 import com.wjs.seata.goods.mapper.GoodsMapper;
 import com.wjs.seata.goods.service.GoodsService;
@@ -27,6 +29,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Autowired
     private RemoteMemberService remoteMemberService;
 
+
+    @HystrixCommand()
     @GlobalTransactional
     @Override
     public Long seckill(Long goodsId, Integer num) {
