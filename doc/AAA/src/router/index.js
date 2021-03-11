@@ -73,6 +73,9 @@ export const constantRoutes = [
   } ,{
     path: '/latestNews',
     component: (resolve) => require(['@/views/LatestNews/index'], resolve)
+  },{
+    path: '/threInOne',
+    component: (resolve) => require(['@/views/ThreeInOne/index'], resolve)
   }
 ]
 

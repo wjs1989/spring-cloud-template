@@ -11,7 +11,7 @@
 			<div class="foot_nav">
 				<a href="/" class="link">网站首页</a>
 				| <a href='/latestNews' class="link">最新资讯</a>
-				| <a href="/latestNews" class="link">三位一体</a>
+				| <a href="/threeInOne" class="link">三位一体</a>
 
 			</div>
 
