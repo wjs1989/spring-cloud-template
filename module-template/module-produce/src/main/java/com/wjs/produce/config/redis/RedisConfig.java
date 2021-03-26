@@ -8,9 +8,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisNode;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wenjs
@@ -47,4 +52,19 @@ public class RedisConfig {
         return template;
     }
 
+    //
+    // public RedisSentinelConfiguration redisSentinelConfiguration() {
+    //     RedisSentinelConfiguration sentinel = new RedisSentinelConfiguration();
+    //
+    //     RedisNode marst = new RedisNode("10.204.125.150", 26379);
+    //
+    //     List<RedisNode> sentinels = new ArrayList<>();
+    //     sentinels.add(new RedisNode("10.204.125.150", 26379));
+    //     sentinels.add(new RedisNode("10.204.125.150", 26380));
+    //     sentinels.add(new RedisNode("10.204.125.150", 26381));
+    //
+    //     sentinel.setSentinels(sentinels);
+    //     sentinel.setMaster("master001");
+    //     return sentinel;
+    // }
 }

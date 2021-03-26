@@ -18,13 +18,36 @@ spring:
 #      connection-test-query: SELECT 1
 #      idle-timeout: 30000
 #      maximum-pool-size: 15
+#  redis:
+#    host: 10.204.125.208
+#    port: 6380
+#    password: redis-isky
+#    #连接超时时间（毫秒）
+#    timeout: 10000
+#    #    block-when-exhausted: true
+#    lettuce:
+#      pool:
+#        # 连接池最大连接数
+#        max-active: 1000
+#        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#        max-wait: 1000
+#        # 连接池中的最大空闲连接
+#        max-idle: 100
+#        # 连接池中的最小空闲连接
+#        min-idle: 30
+
+  cloud:
+    service-registry:
+      auto-registration:
+        enabled: false
+
   redis:
-    host: 10.204.125.208
-    port: 6380
-    password: redis-isky
-    #连接超时时间（毫秒）
-    timeout: 10000
-    #    block-when-exhausted: true
+    sentinel:
+      master: master001
+      nodes:
+        - 10.204.125.150:26379
+        - 10.204.125.150:26380
+        - 10.204.125.150:26381
     lettuce:
       pool:
         # 连接池最大连接数
@@ -35,10 +58,7 @@ spring:
         max-idle: 100
         # 连接池中的最小空闲连接
         min-idle: 30
-  cloud:
-    service-registry:
-      auto-registration:
-        enabled: false
+    password: Aa123456
 
 eureka:
   instance:

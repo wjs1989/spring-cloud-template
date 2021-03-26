@@ -18,6 +18,7 @@ spring:
       seata:
         tx-service-group: seata-server
 
+
 mybatis-plus:
   # 扫描mapper.xml文件
   mapper-locations: classpath:/mapper/*Mapper.xml

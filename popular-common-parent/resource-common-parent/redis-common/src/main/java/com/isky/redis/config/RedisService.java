@@ -6,14 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.time.Duration;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,7 +49,9 @@ public class RedisService {
     public Boolean delete(BaseRedisKey key) {
         return delete(key.getKey());
     }
-
+    public Boolean delete(BaseRedisKey key, Object suffix) {
+        return delete(key.getKey()+ suffix);
+    }
     public Long delete(Collection<String> keys) {
         return redisTemplate.delete(keys);
     }
@@ -89,6 +90,7 @@ public class RedisService {
 
     /**
      * 保存字符串数据
+     *
      * @param key
      * @param suffix 后缀
      * @param value
@@ -156,9 +158,10 @@ public class RedisService {
      * @param suffix 后缀
      * @return
      */
-    public String getString(BaseRedisKey key ,Object suffix) {
-        return getString(key.getKey()+suffix);
+    public String getString(BaseRedisKey key, Object suffix) {
+        return getString(key.getKey() + suffix);
     }
+
     /**
      * 获取字符串信息
      *
@@ -276,6 +279,51 @@ public class RedisService {
      */
     public Map<Object, Object> getHash(BaseRedisKey key) {
         return getHash(key.getKey());
+    }
+
+
+    /**
+     * 管道获取
+     *
+     * @param keys
+     * @return
+     */
+    public List<Object> executePipelined(Collection<String> keys) {
+        if (CollectionUtils.isEmpty(keys)) {
+            return null;
+        }
+        List<Object> result = redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            //业务操作
+            for (String key : keys) {
+                connection.get(key.getBytes());
+            }
+            return null;
+        });
+
+        return result;
+    }
+
+    /**
+     * 管道设置
+     *
+     * @param map
+     * @return
+     */
+    public List<Object> executePipelined(Map<String, String> map) {
+        if (CollectionUtils.isEmpty(map)) {
+            return null;
+        }
+        List<Object> result = redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            //业务操作
+            Map<byte[], byte[]> tuple = new HashMap<>();
+            map.entrySet().forEach(m -> {
+                tuple.put(m.getKey().getBytes(), m.getValue().getBytes());
+            });
+            connection.mSet(tuple);
+            return null;
+        });
+
+        return result;
     }
 
 }

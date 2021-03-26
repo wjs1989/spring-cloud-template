@@ -31,12 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-
-/doc/AAA/node_modules/
-/doc/AAA/dist/
-
-/doc/renren-fast-vue/node_modules/
-/doc/renren-fast-vue/dist/
-
-/log/

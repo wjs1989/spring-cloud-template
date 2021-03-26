@@ -4,28 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wjs.template</groupId>
-        <artifactId>module-template</artifactId>
+        <artifactId>resource-common-parent</artifactId>
         <version>1.0.0</version>
     </parent>
     <groupId>com.wjs.netty</groupId>
-    <artifactId>module-netty</artifactId>
+    <artifactId>netty-common</artifactId>
     <version>1.0.0</version>
-    <name>module-netty</name>
+    <name>netty-common</name>
     <description>Demo project for Spring Boot</description>
-
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-            <scope>test</scope>
-        </dependency>
-
-
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
@@ -36,6 +26,7 @@
             <artifactId>commons-pool</artifactId>
             <version>1.6</version>
         </dependency>
+
 
     </dependencies>
 

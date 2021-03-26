@@ -2,7 +2,7 @@ package com.wjs.seata.member.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
-@TableName("user")
+@TableName("member")
 public class Member {
 
     private Long id;

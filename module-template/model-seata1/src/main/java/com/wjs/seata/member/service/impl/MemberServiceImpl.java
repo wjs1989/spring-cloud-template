@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
 
-    @GlobalTransactional
     @Override
     public Long insert(Member member) {
         String xid = RootContext.getXID();
