@@ -1,5 +1,7 @@
-es:
-  host: 10.204.125.108
-  port: 9200
-  scheme: http
-
+elasticsearch:
+  address: 10.204.125.108:9200  #如果是集群，用逗号隔开
+  connect-timeout: 1000   #连接超时时间
+  socket-timeout: 30000   #连接超时时间
+  connection-request-timeout: 500
+  max-connect-num: 100
+  max-connect-per-route: 100

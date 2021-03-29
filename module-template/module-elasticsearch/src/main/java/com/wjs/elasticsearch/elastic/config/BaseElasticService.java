@@ -1,11 +1,9 @@
-package com.wjs.elasticsearch.config;
+package com.wjs.elasticsearch.elastic.config;
 
 import com.alibaba.fastjson.JSON;
 import com.wjs.elasticsearch.model.ElasticEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
-import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
@@ -30,8 +28,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Slf4j
-@Component
+  @Slf4j
+// @Component
 public class BaseElasticService {
 
     @Autowired
@@ -123,9 +121,9 @@ public class BaseElasticService {
      */
     public void insertOrUpdateOne(String idxName, ElasticEntity entity) {
         IndexRequest request = new IndexRequest(idxName);
-        log.error("Data : id={},entity={}",entity.getId(),JSON.toJSONString(entity.getData()));
-        request.id(entity.getId());
-        request.source(entity.getData(), XContentType.JSON);
+        // log.error("Data : id={},entity={}",entity.getId(),JSON.toJSONString(entity.getData()));
+        // request.id(entity.getId());
+        // request.source(entity.getData(), XContentType.JSON);
 //        request.source(JSON.toJSONString(entity.getData()), XContentType.JSON);
         try {
             restHighLevelClient.index(request, RequestOptions.DEFAULT);
@@ -147,8 +145,8 @@ public class BaseElasticService {
      */
     public void insertBatch(String idxName, List<ElasticEntity> list) {
         BulkRequest request = new BulkRequest();
-        list.forEach(item -> request.add(new IndexRequest(idxName).id(item.getId())
-                .source(item.getData(), XContentType.JSON)));
+        // list.forEach(item -> request.add(new IndexRequest(idxName).id(item.getId())
+        //         .source(item.getData(), XContentType.JSON)));
         try {
             restHighLevelClient.bulk(request, RequestOptions.DEFAULT);
         } catch (Exception e) {

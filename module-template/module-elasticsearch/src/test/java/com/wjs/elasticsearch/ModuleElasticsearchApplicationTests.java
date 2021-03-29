@@ -1,15 +1,12 @@
 package com.wjs.elasticsearch;
 
-import com.wjs.elasticsearch.config.BaseElasticService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 //@SpringBootTest
 class ModuleElasticsearchApplicationTests {
 
-    @Autowired
-    BaseElasticService baseElasticService;
+    // @Autowired
+    // BaseElasticService baseElasticService;
 
     @Test
     void contextLoads() {
