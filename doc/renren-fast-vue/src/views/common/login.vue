@@ -39,7 +39,7 @@
     getUUID
   } from '@/utils'
   export default {
-    data() {
+    data () {
       return {
         dataForm: {
           userName: '',
@@ -67,12 +67,12 @@
         captchaPath: ''
       }
     },
-    created() {
+    created () {
       this.getCaptcha()
     },
     methods: {
       // 提交表单
-      dataFormSubmit() {
+      dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
@@ -101,7 +101,7 @@
         })
       },
       // 获取验证码
-      getCaptcha() {
+      getCaptcha () {
         this.dataForm.uuid = getUUID()
         this.captchaPath = this.$http.adornUrl(`/captcha.jpg?uuid=${this.dataForm.uuid}`)
       }

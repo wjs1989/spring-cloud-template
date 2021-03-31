@@ -14,13 +14,13 @@ module.exports = {
     // 代理列表, 是否开启代理通过[./dev.env.js]配置
     proxyTable: devEnv.OPEN_PROXY === false ? {} : {
       '/proxyApi': {
-        target: '118.24.22.139:8080/',
+        target: 'http://demo.renren.io/renren-fast/',
         changeOrigin: true,
         pathRewrite: {
           '^/proxyApi': '/'
         }
       }
-    },
+    },  
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
