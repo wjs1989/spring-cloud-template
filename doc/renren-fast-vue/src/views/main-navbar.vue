@@ -3,7 +3,7 @@
     <div class="site-navbar__header">
       <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
         <a class="site-navbar__brand-lg" href="javascript:;">教育平台</a>
-        <a class="site-navbar__brand-mini" href="javascript:;">人人</a>
+        <a class="site-navbar__brand-mini" href="javascript:;">志愿</a>
       </h1>
     </div>
     <div class="site-navbar__body clearfix">
@@ -41,7 +41,7 @@
               <img src="~@/assets/img/avatar.png" :alt="userName">{{ userName }}
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="updatePasswordHandle()">修改密码</el-dropdown-item>
+          <!--    <el-dropdown-item @click.native="updatePasswordHandle()">修改密码</el-dropdown-item> -->
               <el-dropdown-item @click.native="logoutHandle()">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -83,12 +83,12 @@
     },
     methods: {
       // 修改密码
-      updatePasswordHandle () {
-        this.updatePassowrdVisible = true
-        this.$nextTick(() => {
-          this.$refs.updatePassowrd.init()
-        })
-      },
+      // updatePasswordHandle () {
+      //   this.updatePassowrdVisible = true
+      //   this.$nextTick(() => {
+      //     this.$refs.updatePassowrd.init()
+      //   })
+      // },
       // 退出
       logoutHandle () {
         this.$confirm(`确定进行[退出]操作?`, '提示', {
