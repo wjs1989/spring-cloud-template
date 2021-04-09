@@ -283,7 +283,7 @@ public class ElasticsearchService {
             JSONObject jsonObject = JSON.parseObject(sourceAsString);
             jsonArray.add(jsonObject);
         }
-        log.info("返回总数为：" + hits.getTotalHits());
+        setDebugLogger("返回总数为：" + hits.getTotalHits());
         return jsonArray.toJSONString();
     }
 

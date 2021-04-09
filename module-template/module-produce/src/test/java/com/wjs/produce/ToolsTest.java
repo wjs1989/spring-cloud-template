@@ -9,13 +9,54 @@ public class ToolsTest {
     }*/
 
     public static void main(String[] args) {
-       // System.out.println("hello word!");
-
-        System.out.println(Integer.parseInt("1234", 16));
-
-        System.out.println(Integer.toString(1234, 16));
-
-        Integer.valueOf(123);
+        ListNode head = new ListNode(0);
+        ListNode tail = head;
+        head.next = tail;
+        for (int i = 0; i < 10; i++) {
+            tail.next = new ListNode(i + 1);
+            tail = tail.next;
+        }
+        ToolsTest.printNode(head);
+        ToolsTest.printNode(ToolsTest.reverseList(head));
     }
+
+    public static void printNode(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val);
+            System.out.print(" ");
+            head = head.next;
+        }
+        System.out.println("");
+    }
+
+    public static ListNode reverseList(ListNode head) {
+
+        ListNode tail = head;
+        if (tail.next == null) {
+            return tail;
+        }
+
+        ListNode nHead = tail.next;
+        tail.next = null;
+
+        do {
+            ListNode sHead = nHead;
+            nHead = sHead.next;
+            sHead.next = tail;
+            tail = sHead;
+
+        } while (nHead != null);
+        return tail;
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next = null;
+
+        ListNode(int val) {
+            this.val = val;
+        }
+    }
+
 
 }

@@ -51,7 +51,7 @@ public class BusinessController {
     @GetMapping("/search")
     public String search() throws Exception {
         BoolQueryBuilder boolBuilder = QueryBuilders.boolQuery();
-        boolBuilder.mustNot(QueryBuilders.termQuery("age", 0));
+        boolBuilder.mustNot(QueryBuilders.termQuery("age", 17));
       //  boolBuilder.must(QueryBuilders.queryStringQuery("name=wenjs"));
         boolBuilder.must(QueryBuilders.termQuery("name", "wenjs"));
 
