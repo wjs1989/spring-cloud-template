@@ -24,13 +24,13 @@
   <delete id="exeDMLDeleteSql" parameterType="java.lang.Integer">
           ${deleteSql}
   </delete>
-  
+
   <select id="exeSelectSql"  resultType="java.util.Map">
       	  ${selectSql}
   </select>
-  
+
   <update id="exeDMLUpdateSql" parameterType="java.lang.Integer">
           ${updateSql}
   </update>
-      
+
 </mapper>

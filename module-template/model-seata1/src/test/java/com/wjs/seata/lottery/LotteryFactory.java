@@ -12,7 +12,7 @@ public class LotteryFactory {
         Set<String> historyData = createHistoryData();
 
         Map<String, Integer> cache = new HashMap<>(10000000);
-        for (long i = 0; i < 1000000000L; i++) {
+        for (long i = 0; i < 10000L; i++) {
             Lottery lottery = new Lottery();
             lottery.init();
             String key = lottery.toString();

@@ -48,10 +48,12 @@ public enum RedisKeyEnum implements BaseRedisKey {
         this.maxExpire = maxExpire;
     }
 
+    @Override
     public String getKey() {
         return key;
     }
 
+    @Override
     public int getExpire() {
         Random r = new Random();
         return r.nextInt(maxExpire - minExpire + 1) + minExpire;

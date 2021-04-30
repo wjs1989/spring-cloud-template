@@ -5,11 +5,11 @@ import io.seata.spring.util.SpringProxyUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class ModelSeataApplicationTests {
 
-    @Test
-    void contextLoads() {
+    public static void main(String[] args) {
+        double a = 25/2;
+        System.out.println(a);
     }
 
 }

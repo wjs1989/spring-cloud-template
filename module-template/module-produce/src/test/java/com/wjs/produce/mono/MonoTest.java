@@ -1,13 +1,12 @@
 package com.wjs.produce.mono;
 
-import reactor.core.CorePublisher;
-import reactor.core.Disposable;
+import com.wjs.produce.model.X;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MonoTest {
 
@@ -54,16 +53,38 @@ public class MonoTest {
 //                 .subscribe(MonoTest::print);
 //
 //        System.out.println("---------- 分割线5 ----------");
-        Mono.using(() -> 1, // 1 数据源
-                integer -> Mono.just(2 + integer), // 2 最终返回
-                integerSource -> System.out.println("清理结果是：" + integerSource), //3 根据4执行3
-                true)// 4 完成前调用 还是 完成后调用
-                .flatMap(integer -> Mono.just(integer + 3))
-                .subscribe(integer -> System.out.println("最终结果是：" + integer));
+
+//         Mono.using(() -> 1, // 1 数据源
+//                 integer -> Mono.just(2 + integer), // 2 最终返回
+//                 integerSource -> System.out.println("清理结果是：" + integerSource), //3 根据4执行3
+//                 false)// 4 完成前调用 还是 完成后调用
+//                 .flatMap(integer -> Mono.just(integer + 3))
+//                 .subscribe(integer -> System.out.println("最终结果是：" + integer));
+
+
+      // Mono.just(1).then(MonoTest.getIntegerIntegerFunction(2)).subscribe(integer -> System.out.println("最终结果是：" + integer));
+
+
+        MonoTest test= new MonoTest();
+        test.init();
+        A x =  new  A("wenjs");
+        test.fluxSink.next(x);
+        //test.fluxSink.complete();
+        test.fluxSink.next(new A("wenjs1"));
     }
 
-    private static Integer getIntegerIntegerFunction(Integer i) {
-return  i+10;
+
+   private FluxSink< A> fluxSink = null;
+
+    private void init(){
+        Flux.< A>create(sink -> fluxSink=sink).flatMap(x->{
+                    System.out.println( x.getName());
+                   return Mono.create(sink -> sink.success());
+                } ).subscribe();
+    }
+
+    private static Mono<Integer> getIntegerIntegerFunction(Integer i) {
+return Mono.just(i+10)  ;
     }
 
     private static void print(Object o) {
@@ -74,5 +95,20 @@ return  i+10;
             e.printStackTrace();
         }
 
+    }
+
+    private static class A{
+        String name;
+        public A( String name){
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

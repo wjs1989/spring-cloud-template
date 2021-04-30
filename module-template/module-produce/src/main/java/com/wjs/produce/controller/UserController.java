@@ -5,9 +5,13 @@ import com.wjs.produce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,5 +46,13 @@ public class UserController {
       //  return localDateTime.format(dtf);
 
        return redisTemplate.opsForValue().get(key);
+    }
+
+    @GetMapping("/users/{id}")
+    public Mono<ResponseEntity<X>> getUsers(@PathVariable("id") Long id) {
+
+        return Mono.just(new X("wjs"))
+                .map(acc -> new ResponseEntity<>(acc, HttpStatus.OK))
+                .switchIfEmpty(Mono.just(new ResponseEntity<>(null, HttpStatus.NOT_FOUND)));
     }
 }

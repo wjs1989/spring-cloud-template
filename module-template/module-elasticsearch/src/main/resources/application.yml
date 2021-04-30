@@ -1,7 +1,48 @@
-elasticsearch:
-  address: 10.204.125.108:9200  #如果是集群，用逗号隔开
-  connect-timeout: 1000   #连接超时时间
-  socket-timeout: 30000   #连接超时时间
-  connection-request-timeout: 500
-  max-connect-num: 100
-  max-connect-per-route: 100
+#elasticsearch:
+#  address: 10.204.125.108:9200  #如果是集群，用逗号隔开
+#  connect-timeout: 1000   #连接超时时间
+#  socket-timeout: 30000   #连接超时时间
+#  connection-request-timeout: 500
+#  max-connect-num: 100
+#  max-connect-per-route: 100
+
+
+#elasticsearch:
+#  embedded:
+#    enabled: false # 为true时使用内嵌的elasticsearch,不建议在生产环境中使用
+#    data-path: ./data/elasticsearch
+#    port: 9200
+#    host: 0.0.0.0
+#  client:
+#    host: 10.204.125.108
+#    port: 9200
+#    max-conn-total: 128
+#    connect-timeout: 5000
+#    socket-timeout: 5000
+#    connection-request-timeout: 8000
+#  index:
+#    default-strategy: time-by-month #默认es的索引按月进行分表, direct则为直接操作索引.
+#    settings:
+#      number-of-shards: 1 # es 分片数量
+#      number-of-replicas: 0 # 副本数量
+
+
+spring:
+#  data:
+#    elasticsearch:
+#      client:
+#        reactive:
+#          endpoints:
+#            - 10.204.125.108:9200
+  elasticsearch:
+    rest:
+      uris: 10.204.125.108:9200
+    index:
+      settings:
+        number_of_shards: 1
+        number_of_replicas: 0
+
+logging:
+  system:
+    context:
+      server: ${spring.application.name}
