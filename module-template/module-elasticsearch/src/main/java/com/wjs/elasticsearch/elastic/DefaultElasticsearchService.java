@@ -9,10 +9,16 @@ import com.wjs.elasticsearch.elastic.annotations.EsField;
 import com.wjs.elasticsearch.elastic.annotations.EsId;
 import com.wjs.elasticsearch.elastic.config.ElasticSearchIndexProperties;
 import com.wjs.elasticsearch.elastic.enums.FieldType;
+import com.wjs.elasticsearch.elastic.index.DefaultIndexManage;
+import com.wjs.elasticsearch.elastic.index.IndexManage;
 import com.wjs.elasticsearch.elastic.params.Page;
 import com.wjs.elasticsearch.elastic.params.PageImpl;
+import lombok.Getter;
+import lombok.Setter;
 import org.elasticsearch.action.DocWriteResponse;
+import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.admin.indices.template.put.PutIndexTemplateRequest;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -45,9 +51,12 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.unit.DataSize;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -68,6 +77,7 @@ public class DefaultElasticsearchService implements ElasticsearchService {
      */
     private Map<String, Class<?>> classCache = new ConcurrentHashMap();
 
+    private final IndexManage indexManage = new DefaultIndexManage();
 
     private ElasticSearchIndexProperties properties;
     private RestHighLevelClient restHighLevelClient;
@@ -77,6 +87,10 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         this.properties = properties;
     }
 
+    public String getAlias(String index) {
+        return index.concat("_alias");
+    }
+
     /**
      * 创建索引(默认分片数为5和副本数为1)
      *
@@ -84,24 +98,22 @@ public class DefaultElasticsearchService implements ElasticsearchService {
      * @throws IOException
      */
     public boolean createIndex(Class clazz) throws Exception {
-        EsDocument esDocumentAnnotation = (EsDocument) clazz.getDeclaredAnnotation(EsDocument.class);
-        if (esDocumentAnnotation == null) {
-            throw new Exception(String.format("class name: %s can not find Annotation [EsDocument], please check", clazz.getName()));
-        }
-        String indexName = esDocumentAnnotation.index();
-        CreateIndexRequest request = new CreateIndexRequest(indexName);
+
+        CreateIndexRequest request = new CreateIndexRequest(indexManage.getIndexForSave(clazz));
 
         // 设置分片数,副本数
         buildSetting(request);
 
         request.mapping(generateBuilder(clazz));
+        String index = indexManage.getIndexForSearch(clazz);
+        request.alias(new Alias(index));
         CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
         // 指示是否所有节点都已确认请求
         boolean acknowledged = response.isAcknowledged();
         // 指示是否在超时之前为索引中的每个分片启动了必需的分片副本数
         boolean shardsAcknowledged = response.isShardsAcknowledged();
         if (acknowledged || shardsAcknowledged) {
-            log.info("创建索引成功！索引名称为{}", indexName);
+            log.info("创建索引成功！索引名称为{}", index);
             return true;
         }
         return false;
@@ -114,13 +126,7 @@ public class DefaultElasticsearchService implements ElasticsearchService {
      * @throws IOException
      */
     public boolean createIndexIfNotExist(Class clazz) throws Exception {
-        EsDocument declaredAnnotation = (EsDocument) clazz.getDeclaredAnnotation(EsDocument.class);
-        if (declaredAnnotation == null) {
-            throw new Exception(String.format("class name: %s can not find Annotation [EsDocument], please check", clazz.getName()));
-        }
-        String indexName = declaredAnnotation.index();
-        boolean indexExists = isIndexExists(indexName);
-        if (!indexExists) {
+        if (!isIndexExists(indexManage.getIndexForSave(clazz))) {
             return createIndex(clazz);
         }
         return false;
@@ -135,12 +141,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
      * @throws IOException
      */
     public boolean updateIndex(Class clazz) throws Exception {
-        EsDocument declaredAnnotation = (EsDocument) clazz.getDeclaredAnnotation(EsDocument.class);
-        if (declaredAnnotation == null) {
-            throw new Exception(String.format("class name: %s can not find Annotation [EsDocument], please check", clazz.getName()));
-        }
-        String indexName = declaredAnnotation.index();
-        PutMappingRequest request = new PutMappingRequest(indexName);
+        String index = indexManage.getIndexForSearch(clazz);
+        PutMappingRequest request = new PutMappingRequest(index);
 
         request.source(generateBuilder(clazz));
         AcknowledgedResponse response = restHighLevelClient.indices().putMapping(request, RequestOptions.DEFAULT);
@@ -148,7 +150,7 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         boolean acknowledged = response.isAcknowledged();
 
         if (acknowledged) {
-            log.info("更新索引索引成功！索引名称为{}", indexName);
+            log.info("更新索引索引成功！索引名称为{}", index);
             return true;
         }
         return false;
@@ -193,46 +195,13 @@ public class DefaultElasticsearchService implements ElasticsearchService {
 
 
     /**
-     * 添加单条数据
-     * 提供多种方式：
-     * 1. json
-     * 2. map
-     * Map<String, Object> jsonMap = new HashMap<>();
-     * jsonMap.put("user", "kimchy");
-     * jsonMap.put("postDate", new Date());
-     * jsonMap.put("message", "trying out Elasticsearch");
-     * IndexRequest indexRequest = new IndexRequest("posts")
-     * .id("1").source(jsonMap);
-     * 3. builder
-     * XContentBuilder builder = XContentFactory.jsonBuilder();
-     * builder.startObject();
-     * {
-     * builder.field("user", "kimchy");
-     * builder.timeField("postDate", new Date());
-     * builder.field("message", "trying out Elasticsearch");
-     * }
-     * builder.endObject();
-     * IndexRequest indexRequest = new IndexRequest("posts")
-     * .id("1").source(builder);
-     * 4. source:
-     * IndexRequest indexRequest = new IndexRequest("posts")
-     * .id("1")
-     * .source("user", "kimchy",
-     * "postDate", new Date(),
-     * "message", "trying out Elasticsearch");
-     * <p>
-     * 报错：  Validation Failed: 1: type is missing;
-     * 加入两个jar包解决
-     * <p>
-     * 提供新增或修改的功能
-     *
      * @return
      */
     public IndexResponse save(Object o) throws Exception {
         EsDocument esDocument = getEsDocument(o);
         String indexName = esDocument.index();
 
-        IndexRequest request = new IndexRequest(indexName);
+        IndexRequest request = new IndexRequest(indexManage.getIndexForSave(o.getClass()));
         Field esId = getFieldByAnnotation(o, EsId.class);
         if (esId != null) {
             esId.setAccessible(true);
@@ -275,7 +244,7 @@ public class DefaultElasticsearchService implements ElasticsearchService {
      * @throws IOException
      */
     public String search(String indexName, SearchSourceBuilder searchSourceBuilder) throws IOException {
-        SearchRequest searchRequest = new SearchRequest(indexName);
+        SearchRequest searchRequest = new SearchRequest(indexManage.getIndexForSearch(indexName));
         searchRequest.source(searchSourceBuilder);
         //  searchRequest.scroll(TimeValue.timeValueMinutes(1L));
         SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
@@ -311,49 +280,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         // 封装分页
         List<T> list = jsonArray.toJavaList(s);
 
-        return PageImpl.of(total, searchSourceBuilder.from(), searchSourceBuilder.size(),list);
+        return PageImpl.of(total, searchSourceBuilder.from(), searchSourceBuilder.size(), list);
     }
-
-    /**
-     * 查询封装，带分页
-     * @param searchSourceBuilder
-     * @param pageNum
-     * @param pageSize
-     * @param s
-     * @param <T>
-     * @return
-     * @throws IOException
-     */
-    // public <T> PageInfo<T> search(SearchSourceBuilder searchSourceBuilder, int pageNum, int pageSize, Class<T> s) throws Exception {
-    //     EsDocument declaredAnnotation = (EsDocument )s.getDeclaredAnnotation(EsDocument.class);
-    //     if(declaredAnnotation == null){
-    //         throw new Exception(String.format("class name: %s can not find Annotation [EsDocument], please check", s.getName()));
-    //     }
-    //     String indexName = declaredAnnotation.index();
-    //     SearchRequest searchRequest = new SearchRequest(indexName);
-    //     searchRequest.source(searchSourceBuilder);
-    //     SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-    //     SearchHits hits = searchResponse.getHits();
-    //     JSONArray jsonArray = new JSONArray();
-    //     for (SearchHit hit : hits) {
-    //         String sourceAsString = hit.getSourceAsString();
-    //         JSONObject jsonObject = JSON.parseObject(sourceAsString);
-    //         jsonArray.add(jsonObject);
-    //     }
-    //     log.info("返回总数为：" + hits.getTotalHits());
-    //     int total = (int)hits.getTotalHits().value;
-    //
-    //     // 封装分页
-    //     List<T> list = jsonArray.toJavaList(s);
-    //     PageInfo<T> page = new PageInfo<>();
-    //     page.setList(list);
-    //     page.setPageNum(pageNum);
-    //     page.setPageSize(pageSize);
-    //     page.setTotal(total);
-    //     page.setPages(total== 0 ? 0: (total%pageSize == 0 ? total / pageSize : (total / pageSize) + 1));
-    //     page.setHasNextPage(page.getPageNum() < page.getPages());
-    //     return page;
-    // }
 
     /**
      * 查询封装，返回集合
@@ -661,5 +589,6 @@ public class DefaultElasticsearchService implements ElasticsearchService {
             log.debug(msg);
         }
     }
+
 
 }

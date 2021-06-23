@@ -55,27 +55,16 @@ public class KafkaConsumerConfig {
 
 
         // 这里设置SASL连接
-//       propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-//        propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-//        propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
-//                "org.apache.kafka.common.security.plain.PlainLoginModule required  username=\"admin\"  password=\"admin\";");
-//
-
         propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         propsMap.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
         propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,
-                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"writer\" password=\"123456\";");
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"isky\" password=\"isky_abc_123_isky\";");
 
         return propsMap;
     }
 
     public ConsumerFactory<String, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-    }
-
-   // @Bean
-    public MyListener listener() {
-        return new MyListener();
     }
 
     @Bean
@@ -85,7 +74,7 @@ public class KafkaConsumerConfig {
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(concurrency);
-        factory.setBatchListener(true);
+        factory.setBatchListener(false);
         factory.getContainerProperties().setPollTimeout(1500);
         return factory;
     }

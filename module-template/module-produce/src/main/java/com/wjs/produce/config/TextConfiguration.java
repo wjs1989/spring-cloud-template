@@ -12,4 +12,12 @@ import reactor.core.publisher.Flux;
 public class TextConfiguration {
 
 
+    @Bean
+    public X x1(){
+        return new X("x1");
+    }
+    @Bean
+    public X x2(){
+        return new X("x2");
+    }
 }

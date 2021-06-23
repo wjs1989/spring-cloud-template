@@ -24,4 +24,6 @@ public @interface EsDocument {
      * @return
      */
     String type();
+
+    String strategy() default "direct";
 }

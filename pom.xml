@@ -44,6 +44,8 @@
         <jackson-databind.version>2.11.0</jackson-databind.version>
         <hutool.version>5.3.0</hutool.version>
         <spring-cloud-alibaba-dependencies.version>2.1.0.RELEASE</spring-cloud-alibaba-dependencies.version>
+        <elasticsearch.version>7.10.0</elasticsearch.version>
+        <spring-data-elasticsearch.version>4.2.0</spring-data-elasticsearch.version>
     </properties>
 
     <dependencyManagement>
@@ -158,6 +160,27 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.data</groupId>-->
+<!--                <artifactId>spring-data-elasticsearch</artifactId>-->
+<!--                <version>${spring-data-elasticsearch.version}</version>-->
+<!--            </dependency>-->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

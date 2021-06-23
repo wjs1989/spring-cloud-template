@@ -27,10 +27,13 @@ public class ModuleElasticsearchApplication {
     public void eventListener(ElasticEntity log) throws Exception {
         elasticsearchService.save(log);
     }
+
     @EventListener
     public void eventListener(SerializableSystemLog log) throws Exception {
 
         System.out.println("日志信息"+ JSONObject.toJSONString(log));
+
+        elasticsearchService.save(log);
     }
 
 }

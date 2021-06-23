@@ -3,12 +3,16 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: 118.24.22.139:9092
+    bootstrap-servers: 10.204.125.254:9092,10.204.125.254:9093,10.204.125.254:9094
     #bootstrap-servers: 192.168.2.103:9092
     producer:
-      linger: 1
+      #消息不足时，发送消息间隔 单位毫秒
+      linger: 100
+      #重试
       retries: 0
+      #默认值是16KB
       batch-size: 16384
+      #发送缓冲取，默认32M
       buffer-memory: 33554432
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

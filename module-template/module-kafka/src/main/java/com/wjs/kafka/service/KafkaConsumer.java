@@ -4,7 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class KafkaConsumer implements MessageListener<String,String> {
 
     @Override
