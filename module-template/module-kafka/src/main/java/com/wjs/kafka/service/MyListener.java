@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 public class MyListener {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final String groupId = "listengroupId";
-    private final String topic = "topictest1";
+    private final String groupId = "listengroupId11";
+    private final String topic = "example";
     private final String clientId1 = "listen0";
     private final String clientId2 = "listen1";
     private final String clientId3 = "listen2";
@@ -29,29 +29,29 @@ public class MyListener {
 
     @KafkaListener(id = clientId1, groupId = groupId, idIsGroup = false, topics = {topic}, errorHandler = errorHandler)
     public void listen(ConsumerRecord<String, String> record) {
-        logger.info("listen1----------------------------------");
+        logger.info("listen1----------------------------------"+record);
 
-        KafkaMessage<MyListener> message = KafkaMessage.of(record.value());
+     //   KafkaMessage<MyListener> message = KafkaMessage.of(record.value());
 
 
     }
 
-    @KafkaListener(id = clientId2, groupId = groupId, idIsGroup = false, topics = {topic})
-    public void listen2(ConsumerRecord<String, String> record) {
-        logger.info("listen2----------------------------------");
-        logger.info("partition2: " + record.partition());
-        logger.info("收到消息的key: " + record.key());
-        logger.info("收到消息的value: " + record.value());
-    }
-
-    //  @KafkaListener(id = clientId3, groupId = groupId, topicPartitions ={ @TopicPartition(topic = "topic1", partitions = {"0"})})
-    @KafkaListener(id = clientId3, groupId = groupId, idIsGroup = false, topics = {topic})
-    public void listen3(ConsumerRecord<String, String> record) {
-        logger.info("listen3----------------------------------");
-        logger.info("partition3: " + record.partition());
-        logger.info("收到消息的key: " + record.key());
-        logger.info("收到消息的value: " + record.value());
-    }
+    // @KafkaListener(id = clientId2, groupId = groupId, idIsGroup = false, topics = {topic})
+    // public void listen2(ConsumerRecord<String, String> record) {
+    //     logger.info("listen2----------------------------------");
+    //     logger.info("partition2: " + record.partition());
+    //     logger.info("收到消息的key: " + record.key());
+    //     logger.info("收到消息的value: " + record.value());
+    // }
+    //
+    // //  @KafkaListener(id = clientId3, groupId = groupId, topicPartitions ={ @TopicPartition(topic = "topic1", partitions = {"0"})})
+    // @KafkaListener(id = clientId3, groupId = groupId, idIsGroup = false, topics = {topic})
+    // public void listen3(ConsumerRecord<String, String> record) {
+    //     logger.info("listen3----------------------------------");
+    //     logger.info("partition3: " + record.partition());
+    //     logger.info("收到消息的key: " + record.key());
+    //     logger.info("收到消息的value: " + record.value());
+    // }
 
     /**
      * @KafkaListener 异常响应，参考clientId1

@@ -3,8 +3,8 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: 10.204.125.254:9092,10.204.125.254:9093,10.204.125.254:9094
-    #bootstrap-servers: 192.168.2.103:9092
+    #bootstrap-servers: 10.204.125.254:9092,10.204.125.254:9093,10.204.125.254:9094
+    bootstrap-servers: 10.204.125.254:9096
     producer:
       #消息不足时，发送消息间隔 单位毫秒
       linger: 100

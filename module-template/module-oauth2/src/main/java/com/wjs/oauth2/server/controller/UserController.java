@@ -2,7 +2,10 @@ package com.wjs.oauth2.server.controller;
 
 import com.wjs.domain.service.user.vo.rsp.LoginVO;
 import com.wjs.domain.service.user.vo.rsp.TokenVO;
+import com.wjs.model.constant.MessageEnum;
 import com.wjs.model.vo.BaseResult;
+import com.wjs.oauth2.server.config.propertie.LoginProperties;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * @author wenjs
@@ -38,6 +42,9 @@ public class UserController {
 
     @Value("${spring.application.name}")
     private String tokenServerName ;
+
+    @Autowired
+    private LoginProperties loginProperties;
 
 
     /**
@@ -113,7 +120,59 @@ public class UserController {
         return BaseResult.success();
     }
 
+    /**
+     * 登录
+     *
+     * @param request
+     * @param vo
+     * @return
+     */
+    @PostMapping("/refreshToken")
+    public BaseResult<OAuth2AccessToken> refreshToken(HttpServletRequest request, @RequestBody TokenVO vo) {
+        if (vo == null || StringUtils.isBlank(vo.getRefreshToken())) {
+            return BaseResult.error("请输入请求参数");
+        }
 
+        if (StringUtils.isBlank(vo.getClientId())) {
+            vo.setClientId(loginProperties.getClientId());
+        }
+
+        if (StringUtils.isBlank(vo.getClientSecret())) {
+            vo.setClientSecret(loginProperties.getClientSecret());
+        }
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.put("grant_type", Collections.singletonList("refresh_token"));
+        map.put("client_id", Collections.singletonList(vo.getClientId()));
+        map.put("client_secret", Collections.singletonList(vo.getClientSecret()));
+        map.put("refresh_token", Collections.singletonList(vo.getRefreshToken()));
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(HttpHeaders.AUTHORIZATION, header);
+        HttpEntity httpEntity = new HttpEntity(map, httpHeaders);
+
+        ResponseEntity<OAuth2AccessToken> body = null;
+        try {
+            body = restTemplate.exchange(
+                    String.format("http://%s/oauth/token", tokenServerName),
+                    HttpMethod.POST,
+                    httpEntity, OAuth2AccessToken.class);
+        } catch (HttpClientErrorException e) {
+            log.error("登录异常：", e);
+            return BaseResult.error();
+        }
+        if (body != null && body.getStatusCode() == HttpStatus.OK) {
+            Map<String, Object> additionalInformation = body.getBody().getAdditionalInformation();
+            Object code = additionalInformation.get("code");
+            if (code != null && !((Integer) code).equals(MessageEnum.SUCCESS.getCode())) {
+                return BaseResult.error();
+            }
+
+            return BaseResult.success(body.getBody());
+        } else {
+            return BaseResult.error();
+        }
+    }
 
 
 }

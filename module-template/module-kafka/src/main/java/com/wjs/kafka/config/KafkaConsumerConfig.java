@@ -61,10 +61,10 @@ public class KafkaConsumerConfig {
         propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
 
         // 这里设置SASL连接
-        propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, securityProtocol);
-        propsMap.put(SaslConfigs.SASL_MECHANISM, saslMechanism);
+       // propsMap.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, securityProtocol);
+       // propsMap.put(SaslConfigs.SASL_MECHANISM, saslMechanism);
         //propsMap.put(SaslConfigs.SASL_JAAS_CONFIG,String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";",username,password));
-        propsMap.put(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
+       // propsMap.put(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
 
         return propsMap;
     }
